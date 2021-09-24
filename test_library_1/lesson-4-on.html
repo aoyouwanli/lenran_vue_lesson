@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson learn on</title>
+</head>
+<body>
+
+<!--View层，也就是视图层，网页格式的模板-->
+<div id="computer_client">
+    <h1>
+        先创建一个名为Say Hi的按钮，并绑定单击事件，弹出自定义写死的信息：
+        <br>
+<!--        类似onclick=function()-->
+        <button v-on:click="sayHi">Say Hi</button>
+        <br>
+        再创建一个名为Say Morning的按钮，并绑定双击事件，弹出数据层的信息：
+        <br>
+        <button v-on:dblclick="morning">Say Morning</button>
+
+    </h1>
+
+</div>
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<script>
+    var vm = new Vue({
+        el:"#computer_client",
+        data:{
+            sayMorning: "Hello, Good Morning!",
+            sayNight: "Hello, Good Night!"
+        },
+        // 方法必须定义在VUE的Methods对象中
+        methods:{
+            sayHi:function(){
+                // 自定义弹出框内容
+                alert("Hello，Good Job！");
+            },
+            morning:function(){
+                // 弹出data中的信息；
+                alert(this.sayMorning);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

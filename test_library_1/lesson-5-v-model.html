@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson learn v-model</title>
+</head>
+<body>
+<div id="computer_client">
+    <h1>v-model命令</h1>
+    <h1>使用v-model指令，在表单、input、textarea和select元素上创建双向数据绑定。</h1>
+    <h1>它会根据数据类型自动选取正确的方法来更新元素。</h1>
+    <h1>v-model本质是语法糖，负责监听用户的输入事件以更新数据，并针对一些极端场景进行一些特殊处理。</h1>
+    <h1><br>案例一：input</h1>
+    <h1>正常的输入框:</h1>
+    输入框：
+    <input id="first_text" type="text" >
+    <h1>通过v-model双向绑定的输入框，输入后和数据层数据保持一致，数据层默认数据123</h1>
+    经过双向绑定的输入框：
+    <input id="second_text" type="text" v-model="input_message">
+    数据层的数据：{{input_message}}
+    <h1><br>案例二：textArea</h1>
+    <h1>双向绑定案例：textArea，数据层数据默认null</h1>
+    自由输入框：
+    <textarea name="case_textarea" id="case_textarea" type="text" v-model="input_textarea"></textarea>
+    数据层的input_textarea值：{{input_textarea}}
+    <h1><br>案例三：类似表单的选择</h1>
+    <h1>双向绑定案例+IF判断脚本：数据层数据默认null，value值和默认项均为数据层双向绑定</h1>
+<!--    raido,多选一的类型,通过name属性来作为绑定成一组数据-->
+<!--    checked作为默认属性-->
+    默认值开关打开，则默认周一，今天星期：
+    <input type="radio" name="weeks" value="星期一" v-model="input_select"  > 星期一
+    <input type="radio" name="weeks" value="星期二" v-model="input_select">星期二
+    <input type="radio" name="weeks" value="星期三" v-model="input_select">星期三
+    <input type="radio" name="weeks" value="星期四" v-model="input_select">星期四
+    <input type="radio" name="weeks" value="星期五" v-model="input_select">星期五
+    <input type="radio" name="weeks" value="星期六" v-model="input_select">星期六
+    <input type="radio" name="weeks" value="星期日" v-model="input_select">星期日
+    <h4>今天星期：{{input_select}}</h4>
+    是否默认周一为默认值：
+    <input type="checkbox" name="checkbox1" v-model="openOrNot" v-on:change="change_value" >{{show_status}}
+    <h1><br>案例四：select</h1>
+    <h1>使用下拉菜单，作为select双向绑定的案例</h1>
+    <h3>正常下拉框</h3>
+    请选择现居城市名称：
+    <select name="city_name" id="city_name" v-model="select_city" v-on:blur="change_input">
+<!--        第一行作为IOS用户必须有的值，否则select会失效-->
+        <option value="" disabled>--Please Choose City--</option>
+        <option value="BJ">北京</option>
+        <option value="SH">上海</option>
+        <option value="GZ">广州</option>
+        <option value="SZ">深圳</option>
+        <option value="MO">澳门</option>
+        <option value="HK">香港</option>
+        <option value="OT">其他城市</option>
+    </select>
+    <br>监控下拉框的Value值：{{select_city}}
+    <br>现居城市为（请输入城市开头拼音，如现居深圳，则输入SZ）：
+    <input type="text" v-model="input_city" v-on:change="change_city">
+    <br>监控输入的值的变化：{{input_city}}
+
+    <h1>5</h1>
+    <h1>4</h1>
+    <h1>3</h1>
+    <h1>2</h1>
+    <h1>1</h1>
+
+</div>
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<script>
+    var vm = new Vue({
+        el:"#computer_client",
+        data:{
+            input_message: "123",
+            input_textarea: "",
+            input_select: "星期一",
+            openOrNot: true,
+            show_status: "Open",
+            input_city: "国内",
+            select_city: "SH"
+        },
+        methods:{
+            change_value:function(){
+                if(this.openOrNot == true){
+                    this.input_select="星期一";
+                    this.show_status="Open";
+                }else {
+                    this.input_select="";
+                    this.show_status="Close";
+                }
+            },
+            change_city:function(){
+                // 先按照下拉框的值，对输入框进行小写转大写，避免后续影响判断
+                this.input_city= this.input_city.toUpperCase();
+                if(this.input_city == "BJ" ||
+                    this.input_city == "SH" ||
+                    this.input_city == "GZ" ||
+                    this.input_city == "SZ" ||
+                    this.input_city == "MO" ||
+                    this.input_city == "HK"){
+                    this.select_city= this.input_city;
+                } else{
+                    this.select_city="OT";
+                }
+            },
+            change_input:function(){
+                var selected_index = document.getElementById("city_name").selectedIndex;
+                this.input_city=document.getElementById("city_name").options[selected_index].text;
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

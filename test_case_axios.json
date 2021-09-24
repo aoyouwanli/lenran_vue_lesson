@@ -1,0 +1,35 @@
+{
+  "userName": "Superman",
+  "higherInsititution": "Shenzhen Oversea Develope Department",
+  "headInsititution": "Beijing Officer",
+  "url": "www.luanqibazao.com",
+  "userRight": "4",
+  "userType": "Manager",
+  "pageNumber":1,
+  "professional": true,
+  "remarks": "hello, this is a remarks, you need to input something in it.",
+  "userInfo": {
+    "buyerId": "44030",
+    "buyerName": "buyer name is secret ",
+    "buyerAddress": "buyer address is lived in some place",
+    "sellerId": "1234567890",
+    "sellerName": "seller name is sellerName",
+    "sellerAddress": "seller address is lived in everywhere",
+    "createDate": "2021-09-21",
+    "shipFromAddress": "shipFromAddress",
+    "shipToAddress": "shipToAddress",
+    "goodsDescription": "goodsDescription",
+    "currency": "CNY",
+    "c": "88888888.00"
+  },
+  "userOrderList": [{
+    "sequenceNo": "1",
+    "orderNumber": "44030_1234567890",
+    "itemDescription": "honor",
+    "price": "1000.00",
+    "quantity": "9.00",
+    "unit": "台",
+    "totalCurrency": "USD",
+    "totalAmount": "9000.00"
+  }]
+}

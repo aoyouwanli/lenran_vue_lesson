@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <h1>Page Test</h1>
+    <meta charset="UTF-8">
+    <title>Lesson Begin</title>
+
+</head>
+<body>
+<!--View层，也就是视图层，网页格式的模板-->
+<div id="computer_client">
+    <!--        字体标签大小H1表示最大，H6最小-->
+    <h1>
+        <span v-bind:title="message">
+        鼠标悬停若干秒显示绑定的信息
+        </span>
+    </h1>
+    <br>
+    <h1>绑定信息变量:{{message}}</h1>
+</div>
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<script>
+    var vm = new Vue({
+        el:"#computer_client",
+        // Model层，属于数据层
+        data:{
+            message:"Welcome to Test Library!",
+            number:"2",
+            good_job:"hello test library."
+        }
+    });
+</script>
+
+</body>
+</html>

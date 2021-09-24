@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson learn "if"</title>
+</head>
+<body>
+<div id="computer_client">
+<!--    相当于 if ok == true then show "Yes" else show "No" end 格式-->
+
+    <h1 v-if="ok">Yes</h1>
+    <h1 v-else>NO</h1>
+    <br>
+    <h1>ok是个布尔值Boolean</h1>
+    <h1>意思就是，当ok这个属性为true的时候显示YES，其他情况显示NO</h1>
+    <h1>下面判断由ok这个属性换成conditions</h1>
+    <h2>show Boolean of Conditions,If true show Yes else show No:</h2>
+    <h2 v-if="conditions">Yes</h2>
+    <h2 v-else>No</h2>
+    <br>
+    <h1>下面，则是使用判断变量的案例：</h1>
+    <h1>设置变量名为：'text_type',当前'text_type'的值为：{{test_type}}</h1>
+    <h2 v-if="test_type==='test'">Test</h2>
+    <h2 v-else-if="test_type==='button'">Button</h2>
+    <h2 v-else>Current text type is: {{test_type}}</h2>
+
+</div>
+
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<script>
+    var test_if = new Vue({
+        el:"#computer_client",
+        data:{
+            ok: true,
+            conditions: false,
+            test_type:"test"
+        }
+    });
+</script>
+
+</body>
+</html>

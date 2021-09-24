@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-6-component</title>
+</head>
+<body>
+
+<!--View层，也就是视图层，网页格式的模板-->
+<div id="computer_client">
+<!--    这个是定义Component中，先在DIV创建出具体模型-->
+<!--    <li>This is my first DIY component</li>-->
+    <h1>案例一：自定义一个组件</h1>
+    <h1>正常情况下，使用一个List的元素，像以下那样</h1>
+    <li>this is the normal List</li>
+    <h3>使用自定义模板diy_component，则可直接将组件名像元素一样引用,如下：</h3>
+<!--    1.3.使用模板-->
+    <diy_component></diy_component>
+    <br>
+    <h1 style="color: red">至此，组件和VUE正式挂钩，一个新创建的VUE文件，相当于一个自定义的组件一样</h1>
+
+    <h1><br>案例二：自定义一个组件名为：case_data，并在里头传入一个数组，并使用List出来</h1>
+<!--    2.4.在自定义的组件中，使用for循环展示show_items里头的数据：v-for="loop_data in show_items" -->
+<!--    2.4.1.创建v-for循环，并自定义一个变量loop_data，v-for="loop_data in show_items" -->
+<!--    2.4.2.使用v-bind绑定received_data在里头：v-bind:received_data="loop_data"-->
+<!--    后续步骤，需要将v-for中的值传递给到模板中，需要在自定义模板case_data使用props接收received_data数组-->
+    <case_data v-for="loop_data in show_items" v-bind:received_data="loop_data"></case_data>
+
+</div>
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<script>
+    // 1.1. 创建一个自定义的组件,diy_component是自定义的组件名
+    Vue.component("diy_component",{
+        // 1.2. 定义一个模板，这个模板可以在div当中创建好后，在copy过来在template中使用
+        template:'<li>This is my first DIY component</li>'
+    });
+
+    // 2.1.创建一个case_data的自定义组件
+    Vue.component("case_data",{
+        // 2.5.将v-for循环中的show_data导入到模板中，使模板加载loop_data数据
+        props:['received_data'],
+        // 2.2.创建一个基础模板,并在展示部分，使用数据层数据，后续会更新改行数据，故注释
+        // template:'<li>{{}}</li>'
+        // 2.6.将加载了received_data的模板数据，写入到自定义模板中
+        // 总结：也可以理解为，固定使用received_data作为模板里头的固定接收数组的变量
+        // 从外部接收这个变量的办法就是使用props
+        // 外部如果需要加载数据，则需要将数组传递到received_data中，就需要在外部使用v-bind和received_data进行绑定
+        // 进行绑定后，如果需要循环展示，则使用v-for方法,这个时候会使用loop_data进行定义
+        // 最后新定义的loop_data加载的数据，是从数据层vm.data.show_items里来的
+        // 这个vm.data.show_items是数据层接口里查询返回的，或者是自定义的
+        template:'<li>{{received_data}}</li>'
+    });
+
+    var vm = new Vue({
+        el:"#computer_client",
+        data:{
+            // 2.3.创建数组items
+            show_items: ["case style","case conditions","case result", "in fact result","pass or not" ]
+        }
+    });
+</script>
+</body>
+</html>

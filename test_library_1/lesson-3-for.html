@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leason learn "for"</title>
+</head>
+<body>
+
+<!--View层，也就是视图层，网页格式的模板-->
+<div id="computer_client">
+    <h1>
+<!--        &nbsp;代表空格-->
+        案例编号&nbsp;&nbsp;案例场景&nbsp;&nbsp;实施条件&nbsp;&nbsp;&nbsp;&nbsp;预期结果
+        <!--        把数组collections塞到 for_collections里头去-->
+        <!--        相当于把collections遍历成for_collections-->
+        <li v-for="for_collections in collections" >
+            {{for_collections.item_1}}
+            {{for_collections.item_2}}
+            {{for_collections.item_3}}
+            {{for_collections.item_4}}
+            {{for_collections.item_5}}
+        </li>
+    </h1>
+    <h2>
+        使用 other itmes 作为演示，并且第一列为系统自带的index：
+<!--        index属于自带属性-->
+<!--        以下items为for循环中的自定义的写法，index属于自带属性-->
+<!--        v-for="(items,index) in other_items"意思是，for循环中使用两个字段，一个items，另外一个index-->
+        <li v-for="(items,index) in other_items">
+            {{index}}
+            {{items.item_1}}
+            {{items.item_2}}
+            {{items.item_3}}
+            {{items.item_4}}
+            {{items.item_5}}
+        </li>
+    </h2>
+</div>
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<script>
+    var vm = new Vue({
+        el:"#computer_client",
+        data:{
+            collections:[
+                {item_1: "0001",
+                    item_2: "测试VUE",
+                    item_3: "安装各种依赖和工具",
+                    item_4: "使用工具测试",
+                    item_5: "测试VUE成功"},
+                {item_1: "0002",
+                    item_2: "测试VUE",
+                    item_3: "彻底躺平",
+                    item_4: "使用工具测试",
+                    item_5: "测试VUE失败"}
+            ],
+            other_items:[
+                {item_1: "item1-1",
+                    item_2: "item1-2",
+                    item_3: "item1-3",
+                    item_4: "item1-4",
+                    item_5: "item1-5"},
+                {item_1: "item2-1",
+                    item_2: "item2-2",
+                    item_3: "item2-3",
+                    item_4: "item2-4",
+                    item_5: "item2-5"}
+            ]
+        }
+    });
+</script>
+</body>
+</html>
