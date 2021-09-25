@@ -2,21 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>lesson-7-first_Axios</title>
+    <title>lesson-8-test GIT</title>
 </head>
 <body>
 <!--View层，也就是视图层，网页格式的模板-->
 <div id="computer_client">
-    <h1>参考官网，我们可以使用这些函数：beforeCreate、create、beforeMount、mounted、
-        beforeUpdate、updated、beforeDestroy、destroyed；</h1>
-    <h1>这里演示钩子函数的使用：mounted</h1>
-    我们把从test_case_axios中，获取到的userName放入到User Name的输入框中：
-    <br>User Name
-    <input type="text" name="user_name" v-model="case_info.userName">
-    <br>我们把从test_case_axios中，获取到的remarks值，放到textArea中展示
-    <br>
-    <textarea name="text_input_data" id="text_input_data"
-              type="text" cols="80" rows="10" v-model="case_info.remarks"></textarea>
 </div>
 <!--    1. 导入VUE.JS-->
 <script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
@@ -27,72 +17,8 @@
 
 <script>
     var vm = new Vue({
-        el:"#computer_client",
-        // 这个data是属性，是指向vm的，是装载vm当中的变量
-        data:{
-            input_from_axios: "hello, This is just a demo"
-        },
-        // 这个data是方法，是指向monted返回的数据的,两者从使用的方法以及着色可以看出来有差异；
-        // 属性的data，使用方法是data:{},
-        // 方法的data，使用方法是data(){},两者的差异还是很大的
-        data(){
-            // 这里的return指的是请求response响应返回的数据，里头可以定义自己所用到的变量
-            // 在这个演示中，实际请求是get('../test_case_axios.json')，其他前端页面中，这个请求很有可能是个URL
-            // 请求的响应加载到return里头，这个演示，是response返回的数据，全部加载到case_info中；
-            return{
-                // 在本演示中，reponse响应返回的数据全部加载到case_info中
-                // 因此case_info的结构，应该和response中的data数据类型保持一致
-                // 我们演示用的是一串json字符，那么case_info就应该是串json字符
-                // 就连结构、名字、类型，都要和response返回的data的一模一样
-                // 如果不需要使用response中的data可以不定义，但是定义了，就要和response中的一样
-                case_info: {
-                    userName: null,
-                    remarks: null,
-                    pageNumber: null,
-                    professional: null,
-                    userInfo: {
-                        buyerId: null,
-                        buyerName: null,
-                        buyerAddress: null,
-                        sellerId: null,
-                        sellerName: null,
-                        sellerAddress: null,
-                        currency: null,
-                        currency: null
-                    },
-                    userOrderList: [{
-                        orderNumber: null,
-                        itemDescription: null,
-                        price: null,
-                        quantity: null,
-                        unit: null,
-                        totalCurrency: null,
-                        totalAmount: null
-                    }]
-                }
-            }
-        },
-        // 1.1.钩子函数的使用，钩子函数属于链式变成，意思就是类似this.data.message的方式点点点...，首先创建钩子函数
-        mounted(){
-            // 1.1.1正常的ajax的函数使用，如下：
-            // $.ajax()
-            // 1.1.2那正常的axios的使用，则如下：
-            // axios.get()
-            // axios.post()
-            // axios.put()
-            // 这里演示get请求
-            // 1.1.3.mounted创建钩子函数，axios，用test_case_axios请求获取数据，理论上'test_case_axios'可以是一个URL；
-            // 也就是说get(test_case_axios)是一个请求，response返回来的数据，输出到console.log(response.data)中
-            // console是输出到浏览器的console，按F12有专门的console，它的LOG可以用console.log来输出
-            // 另外需要注意：=>符号是JavaSript的ES6版本的新特性，在ES5中是不支持的
-            // 以下代码为上方注释所服务，故注释
-            // axios.get('../test_case_axios.json').then(response=>(console.log(response.data)));
-
-            // 以下代码，为演示案例所用，故不注释：
-            // 将请求get('../test_case_axios.json')所返回的是数据response.data赋值给data（方法）中的case_info
-            axios.get('../test_case_axios.json').then(response => (this.case_info=response.data));
-        }
-    });
+        el:"#computer_client"}
+    )
 </script>
 
 </body>
