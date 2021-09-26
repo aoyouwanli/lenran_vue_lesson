@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-9-solt</title>
+</head>
+<body>
+<!--View层，也就是视图层，网页格式的模板-->
+<div id="computer_client">
+    <h1>使用插槽效果和使用template差不多</h1>
+    <h1>主要是在页面中，可以留有口子变更某个段落或者模块的内容</h1>
+    <h1>但是插槽的使用比template更加方便</h1>
+
+
+    <h3 style="color: #5cb85c">以下为HTML正常的待办事项的写法：</h3>
+    区域内容写死，无法对某个区域进行更换数据；
+    <p>待办事项-普通写法</p>
+<!--    ul是无序排列，ol是有序排列，ul或者ol中写入li就可以各自构成无序或者有序排列-->
+    <ul>
+        <li>学习VUE</li>
+        <li>建立VUE网站</li>
+        <li>数据库</li>
+        <li>后端接口</li>
+        <li>服务器</li>
+        <li>赚钱</li>
+    </ul>
+    <h3 style="color: #5cb85c">以下通过template展示的写法：</h3>
+    可以通过template的方式，对list部分进行数据变化而变化，但是List部分也全部跟着数据变动
+    <br>如果稍微复杂点的template，也可以做到像插槽那样的效果
+    <toDo_list_template v-for="list_toDo in list_items" v-bind:input_data="list_toDo"></toDo_list_template>
+
+    <h3 style="color: red">以下通过插槽slot的写法：</h3>
+    可以对某个区域进行替换，也可以某个要素进行替换：
+    <toDo_list_template>
+        <toDo_list_slot_title></toDo_list_slot_title>
+        <toDo_list_slot_item1></toDo_list_slot_item1>
+        <toDo_list_slot_item2></toDo_list_slot_item2>
+        <toDo_list_slot_item3></toDo_list_slot_item3>
+        <toDo_list_slot_item4></toDo_list_slot_item4>
+        <toDo_list_slot_item5></toDo_list_slot_item5>
+        <toDo_list_slot_item6></toDo_list_slot_item6>
+    </toDo_list_template>
+
+</div>
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<script>
+    // 用+号进行拼接，以及用\进行字符拼接的两种方式，都是一样的，可以作为参考
+    Vue.component("toDo_list_template",{
+        prpos:['input_data'],
+        template: '<div>\
+                        <p>待办事项-Template</p>\
+                        <ul>\
+                            <li>{{input_data}}</li>\
+                        </ul>\
+                    </div>'
+    });
+    Vue.component("toDo_list_slot",{
+        template:
+            '<div>' +
+                '<slot></slot>' +   //此为第一个插槽，计划插入标题
+                '<ul>' +
+                    '<solt></solt>' +    //此为第二个插槽，计划插入第一个item
+                    '<solt></solt>' +    //此为第三个插槽，计划插入第二个item
+                    '<solt></solt>' +    //此为第四个插槽，计划插入第三个items
+                    '<solt></solt>' +    //此为第五个插槽，计划插入第四个items
+                    '<solt></solt>' +    //此为第六个插槽，计划插入第五个items
+                    '<solt></solt>' +    //此为第六个插槽，计划插入第六个items
+                '</ul>' +
+            '</div>'
+    });
+    Vue.component("toDo_list_slot_title",{
+        props:['show_title'],
+        template:'<div>{{show_title}}</div>'
+    });
+    Vue.component("toDo_list_slot_item1",{
+        props:['show_item1'],
+        template:'<li>{{show_item1}}</li>'
+    });
+    Vue.component("toDo_list_slot_item2",{
+        props:['show_item2'],
+        template:'<li>{{show_item2}}</li>'
+    });
+    Vue.component("toDo_list_slot_item3",{
+        props:['show_item3'],
+        template:'<li>{{show_item3}}</li>'
+    });
+    Vue.component("toDo_list_slot_item4",{
+        props:['show_item4'],
+        template:'<li>{{show_item4}}</li>'
+    });
+    Vue.component("toDo_list_slot_item5",{
+        props:['show_item5'],
+        template:'<li>{{show_item5}}</li>'
+    });
+    Vue.component("toDo_list_slot_item6",{
+        props:['show_item6'],
+        template:'<li>{{show_item6}}</li>'
+    });
+    var vm = new Vue({
+        el:"#computer_client",
+        data:{
+            list_items: ["学习VUE","建立VUE网站","数据库","后端接口","服务器","赚钱"],
+            todo_title: "待办事项-slot",
+            item1: "学习VUE",
+            item2: "建立VUE网站",
+            item3: "数据库",
+            item4: "后端接口",
+            item5: "服务器",
+            item6: "赚钱"
+        }
+    });
+</script>
+
+</body>
+</html>

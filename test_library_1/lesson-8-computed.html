@@ -8,11 +8,12 @@
 <!--View层，也就是视图层，网页格式的模板-->
 <div id="computer_client">
     <h1>案例1，计算属性演示：</h1>
-    <br>通过methods的function获取当前时间戳：{{currentDay_time()}}
-    <br>通过computed属性的function获取当前时间：{{currentDay_secondTime}}
-    <br>methods中的function必须通过currentDay_time()来使用function
+    <h1 style="color: #5cb85c">通过methods的function获取当前时间戳：{{currentDay_time()}}</h1>
+    <h1 style="color: #5cb85c">通过computed的function获取当前时间：{{currentDay_secondTime}}</h1>
+    methods中的function必须通过currentDay_time()来使用function
     <br>computed则不需要，直接使用方法名currentDay_secondTime即可
-    <br>methods属于方法，computed
+    <br>methods属于方法，computed是属性，computed直接在内存中运行；
+    <h1 style="color: red"> computed主要用途是为了让不经常计算的结果缓存起来，节约系统的开销</h1>
 
 
 </div>
