@@ -2,11 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>lesson-8-test GIT</title>
+    <title>lesson-8-计算属性</title>
 </head>
 <body>
 <!--View层，也就是视图层，网页格式的模板-->
 <div id="computer_client">
+    <h1>案例1，计算属性演示：</h1>
+    <br>通过methods的function获取当前时间戳：{{currentDay_time()}}
+    <br>通过computed属性的function获取当前时间：{{currentDay_secondTime}}
+    <br>methods中的function必须通过currentDay_time()来使用function
+    <br>computed则不需要，直接使用方法名currentDay_secondTime即可
+    <br>methods属于方法，computed
+
+
 </div>
 <!--    1. 导入VUE.JS-->
 <script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
@@ -17,8 +25,22 @@
 
 <script>
     var vm = new Vue({
-        el:"#computer_client"}
-    )
+        el:"#computer_client",
+        data:{
+            input_message: "good good study, day day up!"
+        },
+        methods:{
+            currentDay_time: function(){
+                return Date.now(); //获取当前时间戳
+            }
+        },
+        //计算属性的使用方法，注意，methods的方法名和computed的方法如果重名，methods优先，computed失效
+        computed:{
+            currentDay_secondTime: function(){
+            return Date.now(); //获取当前时间戳
+        }
+        }
+    })
 </script>
 
 </body>

@@ -2,7 +2,8 @@
   "userName": "Superman",
   "higherInsititution": "Shenzhen Oversea Develope Department",
   "headInsititution": "Beijing Officer",
-  "url": "www.luanqibazao.com",
+  "url_163": "https://www.163.com",
+  "url_baidu": "https://www.baidu.com",
   "userRight": "4",
   "userType": "Manager",
   "pageNumber":1,
@@ -20,16 +21,26 @@
     "shipToAddress": "shipToAddress",
     "goodsDescription": "goodsDescription",
     "currency": "CNY",
-    "c": "88888888.00"
+    "amount": "88888888.00"
   },
   "userOrderList": [{
     "sequenceNo": "1",
     "orderNumber": "44030_1234567890",
-    "itemDescription": "honor",
-    "price": "1000.00",
-    "quantity": "9.00",
+    "itemDescription": "Mate X",
+    "price": "123456789.00",
+    "quantity": "100000.00",
     "unit": "台",
     "totalCurrency": "USD",
-    "totalAmount": "9000.00"
-  }]
+    "totalAmount": "999999999.99"
+  },
+    {
+      "sequenceNo": "2",
+      "orderNumber": "44030_0123456789",
+      "itemDescription": "iphone 13 pro max",
+      "price": "123456789.00",
+      "quantity": "100.00",
+      "unit": "台",
+      "totalCurrency": "USD",
+      "totalAmount": "88888888.88"
+    }]
 }

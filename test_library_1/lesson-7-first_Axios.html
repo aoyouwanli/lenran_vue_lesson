@@ -4,10 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>lesson-7-first_Axios</title>
+<!--    以下代码解决页面闪烁问题-->
+    <style>
+        [v-cloak]{
+            display:none;
+        }
+    </style>
+<!--    以上代码解决页面闪烁问题-->
 </head>
 <body>
 <!--View层，也就是视图层，网页格式的模板-->
-<div id="computer_client">
+<div id="computer_client" v-cloak>
     <h1>参考官网，我们可以使用这些函数：beforeCreate、create、beforeMount、mounted、
         beforeUpdate、updated、beforeDestroy、destroyed：</h1>
     <h1>这里演示钩子函数的使用：mounted</h1>
@@ -17,7 +24,34 @@
     <br>我们把从test_case_axios中，获取到的remarks值，放到textArea中展示
     <br>
     <textarea name="text_input_data" id="text_input_data"
-              type="text" cols="80" rows="10" v-model="case_info.remarks"></textarea>
+              type="text" cols="80" rows="10" v-model="case_info.userName"></textarea>
+
+    <h3>演示从返回值中，获取数组的值： </h3>
+    <li v-for="(list_items,index) in case_info.userOrderList">
+        序号：{{index}}
+        <br>Order编号：{{list_items.orderNumber}}
+        <br>Order描述：{{list_items.itemDescription}}
+        <br>价格：{{list_items.price}}
+        <br>数量：{{list_items.quantity}}
+        <br>单位：{{list_items.unit}}
+        <br>总金额：{{list_items.totalCurrency}} - {{list_items.totalAmount}}
+    </li>
+    <h3><br>演示返回值中，数列的值：</h3>
+    <li >
+        买家信息：{{case_info.userInfo.buyerId}} - {{case_info.userInfo.buyerName}} - {{case_info.userInfo.buyerAddress}}
+    </li>
+
+    <h3><br>演示返回值中，url的数据：</h3>
+    返回163网站跳转链接：
+    <a v-bind:href="case_info.url_163">163网站</a>
+    <br> 返回百度网站跳转链接：
+    <a v-bind:href="case_info.url_baidu">百度网站</a>
+
+    <h2><br>最后解决闪烁问题，如果使用低速3G模式，则可以看到，数据加载的过程；
+        <br>解决这个闪烁问题的方案，就是在加载数据之前展示白屏；
+        <br>通过div标签头中的v-cloak标签来解决
+        <br>然后在head部分增加style,来作为v-cloak的前置事件
+    </h2>
 </div>
 <!--    1. 导入VUE.JS-->
 <script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
@@ -51,6 +85,8 @@
                     remarks: null,
                     pageNumber: null,
                     professional: null,
+                    url_163: null,
+                    url_baidu: null,
                     userInfo: {
                         buyerId: null,
                         buyerName: null,
@@ -59,7 +95,7 @@
                         sellerName: null,
                         sellerAddress: null,
                         currency: null,
-                        currency: null
+                        amount: null
                     },
                     userOrderList: [{
                         orderNumber: null,

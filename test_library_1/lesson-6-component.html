@@ -40,6 +40,8 @@
     // 2.1.创建一个case_data的自定义组件
     Vue.component("case_data",{
         // 2.5.将v-for循环中的show_data导入到模板中，使模板加载loop_data数据
+        // props是子组件访问父组件的唯一接口，就是接收父组件数据的接口函数
+        // 本案例是received_data是对外接收数据的字段
         props:['received_data'],
         // 2.2.创建一个基础模板,并在展示部分，使用数据层数据，后续会更新改行数据，故注释
         // template:'<li>{{}}</li>'
