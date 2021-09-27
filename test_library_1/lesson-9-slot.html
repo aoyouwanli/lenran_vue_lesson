@@ -27,19 +27,25 @@
     <h3 style="color: #5cb85c">以下通过template展示的写法：</h3>
     可以通过template的方式，对list部分进行数据变化而变化，但是List部分也全部跟着数据变动
     <br>如果稍微复杂点的template，也可以做到像插槽那样的效果
-    <toDo_list_template v-for="list_toDo in list_items" v-bind:input_data="list_toDo"></toDo_list_template>
+    <toDo_list_template v-bind:input_data="list_items"></toDo_list_template>
+    <div>
+        <p>待办事项-Template</p>
+        <ul >
+            <li v-for="aaa in list_items">{{aaa}}</li>
+        </ul>
+    </div>
 
     <h3 style="color: red">以下通过插槽slot的写法：</h3>
     可以对某个区域进行替换，也可以某个要素进行替换：
-    <toDo_list_template>
-        <toDo_list_slot_title></toDo_list_slot_title>
-        <toDo_list_slot_item1></toDo_list_slot_item1>
-        <toDo_list_slot_item2></toDo_list_slot_item2>
-        <toDo_list_slot_item3></toDo_list_slot_item3>
-        <toDo_list_slot_item4></toDo_list_slot_item4>
-        <toDo_list_slot_item5></toDo_list_slot_item5>
-        <toDo_list_slot_item6></toDo_list_slot_item6>
-    </toDo_list_template>
+<!--    <toDo_list_slot>-->
+<!--        <toDo_list_slot_title></toDo_list_slot_title>-->
+<!--        <toDo_list_slot_item1></toDo_list_slot_item1>-->
+<!--        <toDo_list_slot_item2></toDo_list_slot_item2>-->
+<!--        <toDo_list_slot_item3></toDo_list_slot_item3>-->
+<!--        <toDo_list_slot_item4></toDo_list_slot_item4>-->
+<!--        <toDo_list_slot_item5></toDo_list_slot_item5>-->
+<!--        <toDo_list_slot_item6></toDo_list_slot_item6>-->
+<!--    </toDo_list_slot>-->
 
 </div>
 <!--    1. 导入VUE.JS-->
@@ -47,57 +53,57 @@
 <!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
 <script>
     // 用+号进行拼接，以及用\进行字符拼接的两种方式，都是一样的，可以作为参考
-    Vue.component("toDo_list_template",{
-        prpos:['input_data'],
+    Vue.Component("toDo_list_template",{
+        props:['input_data'],
         template: '<div>\
                         <p>待办事项-Template</p>\
                         <ul>\
-                            <li>{{input_data}}</li>\
+                            <li v-for="show_items in input_data">{{show_items}}</li>\
                         </ul>\
                     </div>'
     });
-    Vue.component("toDo_list_slot",{
-        template:
-            '<div>' +
-                '<slot></slot>' +   //此为第一个插槽，计划插入标题
-                '<ul>' +
-                    '<solt></solt>' +    //此为第二个插槽，计划插入第一个item
-                    '<solt></solt>' +    //此为第三个插槽，计划插入第二个item
-                    '<solt></solt>' +    //此为第四个插槽，计划插入第三个items
-                    '<solt></solt>' +    //此为第五个插槽，计划插入第四个items
-                    '<solt></solt>' +    //此为第六个插槽，计划插入第五个items
-                    '<solt></solt>' +    //此为第六个插槽，计划插入第六个items
-                '</ul>' +
-            '</div>'
-    });
-    Vue.component("toDo_list_slot_title",{
-        props:['show_title'],
-        template:'<div>{{show_title}}</div>'
-    });
-    Vue.component("toDo_list_slot_item1",{
-        props:['show_item1'],
-        template:'<li>{{show_item1}}</li>'
-    });
-    Vue.component("toDo_list_slot_item2",{
-        props:['show_item2'],
-        template:'<li>{{show_item2}}</li>'
-    });
-    Vue.component("toDo_list_slot_item3",{
-        props:['show_item3'],
-        template:'<li>{{show_item3}}</li>'
-    });
-    Vue.component("toDo_list_slot_item4",{
-        props:['show_item4'],
-        template:'<li>{{show_item4}}</li>'
-    });
-    Vue.component("toDo_list_slot_item5",{
-        props:['show_item5'],
-        template:'<li>{{show_item5}}</li>'
-    });
-    Vue.component("toDo_list_slot_item6",{
-        props:['show_item6'],
-        template:'<li>{{show_item6}}</li>'
-    });
+    // Vue.components("toDo_list_slot",{
+    //     template:
+    //         '<div>' +
+    //             '<slot></slot>' +   //此为第一个插槽，计划插入标题
+    //             '<ul>' +
+    //                 '<solt></solt>' +    //此为第二个插槽，计划插入第一个item
+    //                 '<solt></solt>' +    //此为第三个插槽，计划插入第二个item
+    //                 '<solt></solt>' +    //此为第四个插槽，计划插入第三个items
+    //                 '<solt></solt>' +    //此为第五个插槽，计划插入第四个items
+    //                 '<solt></solt>' +    //此为第六个插槽，计划插入第五个items
+    //                 '<solt></solt>' +    //此为第六个插槽，计划插入第六个items
+    //             '</ul>' +
+    //         '</div>'
+    // });
+    // Vue.components("toDo_list_slot_title",{
+    //     props:['show_title'],
+    //     template:'<div>{{show_title}}</div>'
+    // });
+    // Vue.components("toDo_list_slot_item1",{
+    //     props:['show_item1'],
+    //     template:'<li>{{show_item1}}</li>'
+    // });
+    // Vue.components("toDo_list_slot_item2",{
+    //     props:['show_item2'],
+    //     template:'<li>{{show_item2}}</li>'
+    // });
+    // Vue.components("toDo_list_slot_item3",{
+    //     props:['show_item3'],
+    //     template:'<li>{{show_item3}}</li>'
+    // });
+    // Vue.components("toDo_list_slot_item4",{
+    //     props:['show_item4'],
+    //     template:'<li>{{show_item4}}</li>'
+    // });
+    // Vue.components("toDo_list_slot_item5",{
+    //     props:['show_item5'],
+    //     template:'<li>{{show_item5}}</li>'
+    // });
+    // Vue.components("toDo_list_slot_item6",{
+    //     props:['show_item6'],
+    //     template:'<li>{{show_item6}}</li>'
+    // });
     var vm = new Vue({
         el:"#computer_client",
         data:{
