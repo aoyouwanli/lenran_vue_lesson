@@ -8,14 +8,17 @@
 
 <div id="computer_client">
 
-    <h3 style="color: red"><br>以下通过插槽slot的写法：</h3>
-    案例一：在slot中定义方法，需要在template中定义，如果在页面上定义，会报没有定义该方法的错
-    <br>在这里，提示按钮选在slot_item2中
+    小知识：“:”是v-bind的简写，“@”是v-on的简写
+    <br>比如v-bind:slot_list，可以写成:solt_list，v-on:click="alert_info"可以写成@click="alert_info"
+
+    <h1 style="color: red"><br>以下通过插槽slot的写法：</h1>
+    案例一：在slot中定义方法，需要在template中的methods定义，如果在页面vm上定义，会报没有定义该方法的错
+    <br>在这里，提示按钮选在slot_item2中，
     <br>
     <todo_list_slot v-bind:input_data_slot="slot_list">
         <todo_list_slot_title slot="slot_title" v-bind:show_title="slot_title"></todo_list_slot_title>
         <todo_list_slot_item1 slot="slot_item1" v-bind:show_item1="slot_item1"></todo_list_slot_item1>
-        <todo_list_slot_item2 slot="slot_item2" v-for="list_item2 in slot_item2" v-bind:show_item2="list_item2"></todo_list_slot_item2>
+        <todo_list_slot_item2 slot="slot_item2" :show_item2="slot_item2"></todo_list_slot_item2>
     </todo_list_slot>
 
 </div>
@@ -50,7 +53,7 @@
     Vue.component("todo_list_slot_item2",{
         props:['show_item2'],
         // 如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中
-        template:'<li>{{show_item2}} <button @click="alert_info">弹出提示</button></li>',
+        template:'<li v-for="list_item2 in show_item2">{{list_item2}} <button @click="alert_info">弹出提示</button></li>',
         methods:{
             alert_info:function(){
                 alert("如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中");
