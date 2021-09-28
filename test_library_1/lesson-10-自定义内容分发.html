@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-10-自定义内容分发</title>
+</head>
+<body>
+
+<div id="computer_client">
+
+    <h3 style="color: red"><br>以下通过插槽slot的写法：</h3>
+    案例一：在slot中定义方法，需要在template中定义，如果在页面上定义，会报没有定义该方法的错
+    <br>在这里，提示按钮选在slot_item2中
+    <br>
+    <todo_list_slot v-bind:input_data_slot="slot_list">
+        <todo_list_slot_title slot="slot_title" v-bind:show_title="slot_title"></todo_list_slot_title>
+        <todo_list_slot_item1 slot="slot_item1" v-bind:show_item1="slot_item1"></todo_list_slot_item1>
+        <todo_list_slot_item2 slot="slot_item2" v-for="list_item2 in slot_item2" v-bind:show_item2="list_item2"></todo_list_slot_item2>
+    </todo_list_slot>
+
+</div>
+
+<!--    1. 导入VUE.JS-->
+<script src="../JavaScript/VUE.JS/vue/dist/vue.js"></script>
+<!--<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+<!--2. 导入Axios.js-->
+<script src="../JavaScript/axios/dist/axios.js"></script>
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<script>
+    Vue.component("todo_list_slot",{
+        props:['input_data_slot'],
+        template:
+            '<div>' +
+            '<slot name="slot_title"></slot>' +   //此为第一个插槽，计划插入标题
+            '<ul>' +
+            '<slot name="slot_item1"></slot>' +    //此为第二个插槽，计划插入第一个item，以数据作为演示
+            '<slot name="slot_item2"></slot>' +    //此为第三个插槽，计划插入第二个item，以数组作为演示
+            '<li v-for="show_list in input_data_slot" >{{show_list}}</li>' +    //此为模板固定数据
+            '</ul>' +
+            '</div>'
+    });
+    Vue.component("todo_list_slot_title",{
+        props:['show_title'],
+        template:'<p>{{show_title}}</p>'
+    });
+    Vue.component("todo_list_slot_item1",{
+        props:['show_item1'],
+        template:'<li>{{show_item1}}</li>'
+    });
+    Vue.component("todo_list_slot_item2",{
+        props:['show_item2'],
+        // 如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中
+        template:'<li>{{show_item2}} <button @click="alert_info">弹出提示</button></li>',
+        methods:{
+            alert_info:function(){
+                alert("如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中");
+            },
+        }
+    });
+    var vm = new Vue({
+        el:"#computer_client",
+        data:{
+            list_items: ["学习VUE","建立VUE网站","数据库","后端接口","服务器","赚钱"],
+            slot_title: "待办事项-slot",
+            slot_item1: "学习VUE",
+            slot_item2: ["建立VUE网站","数据库"],
+            slot_list: ["后端接口","服务器","赚钱"]
+        }
+    });
+</script>
+</body>
+</html>
