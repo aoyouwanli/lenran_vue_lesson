@@ -8,17 +8,22 @@
 
 <div id="computer_client">
 
-    小知识：“:”是v-bind的简写，“@”是v-on的简写
+    <h3 style="color: #5cb85c">小知识：“:”是v-bind的简写，“@”是v-on的简写
     <br>比如v-bind:slot_list，可以写成:solt_list，v-on:click="alert_info"可以写成@click="alert_info"
+    </h3>
 
     <h1 style="color: red"><br>以下通过插槽slot的写法：</h1>
     案例一：在slot中定义方法，需要在template中的methods定义，如果在页面vm上定义，会报没有定义该方法的错
     <br>在这里，提示按钮选在slot_item2中，
     <br>
     <todo_list_slot v-bind:input_data_slot="slot_list">
-        <todo_list_slot_title slot="slot_title" v-bind:show_title="slot_title"></todo_list_slot_title>
-        <todo_list_slot_item1 slot="slot_item1" v-bind:show_item1="slot_item1"></todo_list_slot_item1>
-        <todo_list_slot_item2 slot="slot_item2" :show_item2="slot_item2"></todo_list_slot_item2>
+        <todo_list_slot_title slot="slot_title" :show_title="slot_title"></todo_list_slot_title>
+        <todo_list_slot_item1 slot="slot_item1" :show_item1="slot_item1"></todo_list_slot_item1>
+        <!--                              这里用多个变量传值给props-->
+        <todo_list_slot_item2 slot="slot_item2"
+                              v-for="(list_item2,index) in slot_item2"
+                              :show_item2="list_item2" :index_item2="index">
+        </todo_list_slot_item2>
     </todo_list_slot>
 
 </div>
@@ -48,26 +53,66 @@
     });
     Vue.component("todo_list_slot_item1",{
         props:['show_item1'],
-        template:'<li>{{show_item1}}</li>'
+        template:'<li>{{show_item1}}<button @click="alert_tips">数字型items，小知识点</button></li>',
+        methods:{
+            alert_tips:function(){
+                alert("如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中")
+            }
+        }
     });
     Vue.component("todo_list_slot_item2",{
-        props:['show_item2'],
+        props:['index_item2','show_item2'],
         // 如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中
-        template:'<li v-for="list_item2 in show_item2">{{list_item2}} <button @click="alert_info">弹出提示</button></li>',
+        // 以下注释语句为错误写法，因为v-for不能用于根元素上，
+        // 在以下template中，<li></li>元素为根元素，需要套一层，或者再上层进行v-for设置
+        // template:'<li v-for="list_item2 in show_item2">{{list_item2}}>弹出提示</button></li>',
+        template:'<li @click="change_button(show_item2)">{{show_item2}}' +
+                    '<button @click="alert_info(index_item2,show_item2)" >{{item2_button}}</button>' +
+                 '</li>',
+        // 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝。
+        // 这是一个函数的形式，不能像外部那样data:{};来引用
+        data:function(){
+            return {
+            item2_button:"Item2的按钮小Tips"}
+        },
         methods:{
-            alert_info:function(){
-                alert("如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中");
+            alert_info:function(index_item2,show_item2){
+                case_array = new Array(9,99,999,"AA","bb");
+                alert_item2 = "";
+                alert_acount=0;
+                if (show_item2 == 20 ) {
+                    alert_item2 = "方法：把index传入到template的methods中alert出来，itmes数组的当前index： " + index_item2 +
+                        ", 数组的索引由0开始，并非由1开始"
+                } else if(show_item2 == 30){
+                    alert_item2 = "*-用new Array(9,99,999,''AA'',''bb'')创建新数组：[" + case_array.toString() +
+                                  "]；*-也可以用 var arry = [9,99,999,''AA'',''BB'']来直接赋值，切记两种方法使用的符号是不同的，" +
+                                  "一种是(),另外一种是[]，*-如果是数字型可直接写数字，如果是字符型要加双引号！";
+                } else if(show_item2 == 40){
+                    alert_item2 = "用Array.length来获取数组的长度，即数组可以容纳多少个元素在内，本案例数组长度为：" +
+                        case_array.length + "，如果直接对这个长度赋值，会直接改变数组的长度，Array的大小也会发生变化";
+                }
+                alert(alert_item2);
             },
+            change_button:function(show_item2){
+                if(show_item2 == 20){
+                    button_label = "【index】展示当前item的index值";
+                } else if(show_item2 == 30){
+                    button_label = "【new Array[9,99,999]】展示当前新的Array值";
+                } else if(show_item2 == 40){
+                    button_label = "【array.length]】展示当前新的Array值的长度";
+                }
+                return this.item2_button = button_label
+            }
         }
     });
     var vm = new Vue({
         el:"#computer_client",
         data:{
-            list_items: ["学习VUE","建立VUE网站","数据库","后端接口","服务器","赚钱"],
-            slot_title: "待办事项-slot",
-            slot_item1: "学习VUE",
-            slot_item2: ["建立VUE网站","数据库"],
-            slot_list: ["后端接口","服务器","赚钱"]
+            list_items: [10,20,30,40,50,"70","80","A","B"],
+            slot_title: "数列演示",
+            slot_item1: 10,
+            slot_item2: [20,30,40,50],
+            slot_list: ["70","80","A","B"]
         }
     });
 </script>
