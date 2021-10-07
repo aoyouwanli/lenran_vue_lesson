@@ -9,7 +9,7 @@
 <div id="computer_client">
 
     <h3 style="color: #5cb85c">小知识：“:”是v-bind的简写，“@”是v-on的简写
-    <br>比如v-bind:slot_list，可以写成:solt_list，v-on:click="alert_info"可以写成@click="alert_info"
+    <br>比如v-bind:title="slot_list"，可以写成:title="solt_list"，v-on:click="alert_info"可以写成@click="alert_info"
     </h3>
 
     <h1 style="color: red"><br>以下通过插槽slot的写法：</h1>
@@ -39,13 +39,40 @@
         props:['input_data_slot'],
         template:
             '<div>' +
-            '<slot name="slot_title"></slot>' +   //此为第一个插槽，计划插入标题
+                '<slot name="slot_title"></slot>' +   //此为第一个插槽，计划插入标题
             '<ul>' +
-            '<slot name="slot_item1"></slot>' +    //此为第二个插槽，计划插入第一个item，以数据作为演示
-            '<slot name="slot_item2"></slot>' +    //此为第三个插槽，计划插入第二个item，以数组作为演示
-            '<li v-for="show_list in input_data_slot" >{{show_list}}</li>' +    //此为模板固定数据
+                '<slot name="slot_item1"></slot>' +    //此为第二个插槽，计划插入第一个item，以数据作为演示
+                '<slot name="slot_item2"></slot>' +    //此为第三个插槽，计划插入第二个item，以数组作为演示
+                '<li v-for="(show_list,list_index) in input_data_slot" ' +
+                '@click="alert_message(show_list,list_index,item3_button_label)">{{show_list}}' +
+                '   <button >{{item3_button_label[list_index]}}</button></li>' +    //此为模板固定数据
             '</ul>' +
-            '</div>'
+            '</div>',
+        data:function(){
+            return{
+                item3_button_label:new Array("item3的小Tips","item3的小Tips","item3的小Tips","item3的小Tips")
+            }
+        },
+        methods:{
+            alert_message:function(show_list,list_index,item3_button_label){
+                alert_item3="still wait for more a moment";
+                item3_array = new Array(0,1,2,3,"a","b","c","d");
+                item3_arry2 = item3_array.slice(1,5);
+                item3_label = item3_button_label;
+
+                if (show_list == "70"){
+                    item3_array2 = item3_array.slice(1,5);
+                    alert_item3 = "slice()函数，就是和subString()函数类似，它会截取Array部分元素，返还一个新Array" +
+                        "以item3_array:" + item3_array.toString() + "，为例,采用item3_array.slice(1,5)，" +
+                        "所得结果为：" + item3_array2.toString() + "截取item3_array数组从index从1到index5的元素" +
+                        "(不包含index（5）的元素)，并组成了新数组。如果超出数组范围，则超出部分会返还为空。";
+                    item3_label[list_index] = "slice()函数演示";
+                }
+                alert(alert_item3);
+                alert("debug:" + item3_button_label.toString());
+                return this.item3_button_label = item3_label;
+            }
+        }
     });
     Vue.component("todo_list_slot_title",{
         props:['show_title'],
@@ -77,18 +104,26 @@
         },
         methods:{
             alert_info:function(index_item2,show_item2){
-                case_array = new Array(9,99,999,"AA","bb");
+                case_array = new Array(9,99,999,"99","AA","bb");
                 alert_item2 = "";
                 alert_acount=0;
                 if (show_item2 == 20 ) {
                     alert_item2 = "方法：把index传入到template的methods中alert出来，itmes数组的当前index： " + index_item2 +
                         ", 数组的索引由0开始，并非由1开始"
                 } else if(show_item2 == 30){
-                    alert_item2 = "*-用new Array(9,99,999,''AA'',''bb'')创建新数组：[" + case_array.toString() +
-                                  "]；*-也可以用 var arry = [9,99,999,''AA'',''BB'']来直接赋值，切记两种方法使用的符号是不同的，" +
+                    alert_item2 = "*-用new Array(9,99,999,''99'',''AA'',''bb'')创建新数组：[" + case_array.toString() +
+                                  "]；*-也可以用 var arry = [9,99,999,''99'',''AA'',''BB'']来直接赋值，切记两种方法使用的符号是不同的，" +
                                   "一种是(),另外一种是[]，*-如果是数字型可直接写数字，如果是字符型要加双引号！";
                 } else if(show_item2 == 40){
                     alert_item2 = "用Array.length来获取数组的长度，即数组可以容纳多少个元素在内，本案例数组长度为：" +
+                        case_array.length + "，如果直接对这个长度赋值，会直接改变数组的长度，Array的大小也会发生变化";
+                } else if(show_item2 == 50){
+                    alert_item2 = "indexOf和String类似，Array也可以用来搜索指定的元素位置,以item2区间创建出来的数列为例：" +
+                                  "当前数列为：" + case_array.toString() +
+                                  "，当前数列中AA的位置如下：case_array.indexOf(''AA''），位置是：" + case_array.indexOf("AA") +
+                                  "，但是要注意数字型99和字符型''99''，属于不同元素,数字型99的indexOf位置是：case_array.indexOf(99)，位置是：" +
+                                  case_array.indexOf(99) + "，字符型99的indexOf位置是：case_array.indexOf(''99'')，位置是：" +
+                                  case_array.indexOf("99")
                         case_array.length + "，如果直接对这个长度赋值，会直接改变数组的长度，Array的大小也会发生变化";
                 }
                 alert(alert_item2);
@@ -100,6 +135,8 @@
                     button_label = "【new Array[9,99,999]】展示当前新的Array值";
                 } else if(show_item2 == 40){
                     button_label = "【array.length]】展示当前新的Array值的长度";
+                } else if(show_item2 == 50){
+                    button_label = "【array.indexOf()】展示当前新的Array中要素的位置";
                 }
                 return this.item2_button = button_label
             }
