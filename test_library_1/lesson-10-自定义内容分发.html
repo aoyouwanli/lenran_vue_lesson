@@ -13,9 +13,16 @@
     </h3>
 
     <h1 style="color: red"><br>以下通过插槽slot的写法：</h1>
-    案例一：在slot中定义方法，需要在template中的methods定义，如果在页面vm上定义，会报没有定义该方法的错
-    <br>在这里，提示按钮选在slot_item2中，
-    <br>
+    <h3 style="color: #5cb85c"><br>插槽slot的小知识点：</h3>
+        如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中;
+    <h3 style="color: #5cb85c"><br>数组知识点演示：</h3>
+        数组坑：数组在JS通过索引的方式进行赋值，如array[index] = ''ABC''，这种方式可以更新数组，但是页面检测不到数组的更新，即并非响应式的；
+    <br>如果需要对数组更新，且响应式的展示在页面上，则要用array.splice(index,number,item)的方式,如上例:
+    <br>index是数组的索引，number是更新数组的数量，item是要更新的具体内容，这个item可以是一个字符串，也可以是个数组
+    <br>假设要更新array数组的第6个数，更新1个数据，则是array.splice(5,1,''ABC'');
+    <br><a href="https://blog.csdn.net/weixin_39545017/article/details/109919913">
+    参考blog：js更新数组对象_7 种Vue 数据已更新而页面没有更新的情况及深化总结
+</a>
     <todo_list_slot v-bind:input_data_slot="slot_list">
         <todo_list_slot_title slot="slot_title" :show_title="slot_title"></todo_list_slot_title>
         <todo_list_slot_item1 slot="slot_item1" :show_item1="slot_item1"></todo_list_slot_item1>
@@ -44,21 +51,21 @@
                 '<slot name="slot_item1"></slot>' +    //此为第二个插槽，计划插入第一个item，以数据作为演示
                 '<slot name="slot_item2"></slot>' +    //此为第三个插槽，计划插入第二个item，以数组作为演示
                 '<li v-for="(show_list,list_index) in input_data_slot" ' +
-                '@click="alert_message(show_list,list_index,item3_button_label)">{{show_list}}' +
+                '@click="alert_message(show_list,list_index)">{{show_list}}' +
                 '   <button >{{item3_button_label[list_index]}}</button></li>' +    //此为模板固定数据
             '</ul>' +
             '</div>',
         data:function(){
             return{
-                item3_button_label:new Array("item3的小Tips","item3的小Tips","item3的小Tips","item3的小Tips")
+                item3_button_label:["字符型items：item3的按钮小Tips","item3的按钮小Tips","item3的按钮小Tips","item3的按钮小Tips"]
             }
         },
         methods:{
-            alert_message:function(show_list,list_index,item3_button_label){
+            alert_message:function(show_list,list_index){
                 alert_item3="still wait for more a moment";
-                item3_array = new Array(0,1,2,3,"a","b","c","d");
+                item3_array = [0,1,2,3,"a","b","c","d"];
                 item3_arry2 = item3_array.slice(1,5);
-                item3_label = item3_button_label;
+                item3_label = "item3的按钮little Tips";
 
                 if (show_list == "70"){
                     item3_array2 = item3_array.slice(1,5);
@@ -66,11 +73,10 @@
                         "以item3_array:" + item3_array.toString() + "，为例,采用item3_array.slice(1,5)，" +
                         "所得结果为：" + item3_array2.toString() + "截取item3_array数组从index从1到index5的元素" +
                         "(不包含index（5）的元素)，并组成了新数组。如果超出数组范围，则超出部分会返还为空。";
-                    item3_label[list_index] = "slice()函数演示";
-                }
+                    item3_label = "slice()函数演示";
+                    }
+                this.item3_button_label.splice(list_index,1,item3_label);
                 alert(alert_item3);
-                alert("debug:" + item3_button_label.toString());
-                return this.item3_button_label = item3_label;
             }
         }
     });
@@ -104,7 +110,7 @@
         },
         methods:{
             alert_info:function(index_item2,show_item2){
-                case_array = new Array(9,99,999,"99","AA","bb");
+                case_array = [9,99,999,"99","AA","bb"];
                 alert_item2 = "";
                 alert_acount=0;
                 if (show_item2 == 20 ) {
@@ -146,7 +152,7 @@
         el:"#computer_client",
         data:{
             list_items: [10,20,30,40,50,"70","80","A","B"],
-            slot_title: "数列演示",
+            slot_title: "数组演示",
             slot_item1: 10,
             slot_item2: [20,30,40,50],
             slot_list: ["70","80","A","B"]
