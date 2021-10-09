@@ -14,30 +14,39 @@
 
     <h1 style="color: red"><br>以下通过插槽slot的写法：</h1>
     <h3 style="color: #5cb85c"><br>插槽slot的小知识点：</h3>
-        如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中;
+        1. 如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中;
+    <br>2.
+
     <h3 style="color: #5cb85c"><br>数组坑演示：</h3>
         1. 数组在JS通过索引的方式进行赋值，如array[index] = ''ABC''，这种方式可以更新数组，但是页面检测不到数组的更新，即并非响应式的；
     <br>如果需要对数组更新，且响应式的展示在页面上，则要用array.splice(index,number,item)的方式,如上例:
-    <br>index是数组的索引，number是更新数组的数量，item是要更新的具体内容，这个item可以是一个字符串，也可以是个数组
+    <br>index是数组的索引;
+    <br>number是从index位置开始删除数组中元素的数量;
+    <br>item是从index位置开始添加元素，这个item可以是一个字符串，也可以是个数组
     <br>假设要更新array数组的第6个数，更新1个数据，则是array.splice(5,1,''ABC'');
     <br><a href="https://blog.csdn.net/weixin_39545017/article/details/109919913">
     参考blog：js更新数组对象_7 种Vue 数据已更新而页面没有更新的情况及深化总结</a>
 
     <br><br>2. 如果是用 array_b = array_a这种数组赋值方式，在操作新数组array_b的时候，会影响原数组array_a的数组。
     <br>原因是array_b只是引用array_a数组，并不是赋值。在不影响原数组的情况下，有三种方案：
-    一：不成功的方案：使用extend的方式，把原数组合并给新数组：$.extend( [deep], target, object1 [, object2,...,objectN ] )
+    <br>一：不成功的方案：使用extend的方式，把原数组合并给新数组：$.extend( [deep], target, object1 [, object2,...,objectN ] )
     <br>二：可以将array_a转换成json后，赋值给array_b后，再转回数组：
     方法是：array_b=JSON.parse(JSON.stringify(array_a))
     <br>三：可以使用concat()函数，即采用新数组后，将原有数组包含在新数组内，这样操作新数组，也不会影响原有数组。
     <br>方法是：array_b = array_b.concat(array_a)
 
-    <todo_list_slot v-bind:input_data_slot="slot_list">
+    <todo_list_slot :input_data_slot="slot_list"
+                    @item3_add_items="add_items()">
         <todo_list_slot_title slot="slot_title" :show_title="slot_title"></todo_list_slot_title>
-        <todo_list_slot_item1 slot="slot_item1" :show_item1="slot_item1"></todo_list_slot_item1>
         <!--                              这里用多个变量传值给props-->
+        <todo_list_slot_item1 slot="slot_item1" :show_item1="slot_item1"
+                              @alert_information="alert_notes"></todo_list_slot_item1>
+<!--                            自定义分发事件演示：弹出自定义分发事件简述-->
         <todo_list_slot_item2 slot="slot_item2"
                               v-for="(list_item2,index) in slot_item2"
-                              :show_item2="list_item2" :index_item2="index">
+                              :show_item2="list_item2" :index_item2="index"
+                              @remove="remove_items(index)">
+<!--                            自定义分发事件演示：remove事件-->
         </todo_list_slot_item2>
     </todo_list_slot>
 
@@ -51,16 +60,17 @@
 <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
 <script>
     Vue.component("todo_list_slot",{
-        props:['input_data_slot'],
+        props:['input_data_slot','list_index','item3_add_array'],
         template:
             '<div>' +
                 '<slot name="slot_title"></slot>' +   //此为第一个插槽，计划插入标题
             '<ul>' +
                 '<slot name="slot_item1"></slot>' +    //此为第二个插槽，计划插入第一个item，以数据作为演示
                 '<slot name="slot_item2"></slot>' +    //此为第三个插槽，计划插入第二个item，以数组作为演示
-                '<li v-for="(show_list,list_index) in input_data_slot" ' +
-                '@click="alert_message(show_list,list_index)">{{show_list}}' +
-                '   <button >{{item3_button_label[list_index]}}</button></li>' +    //此为模板固定数据
+                '<li v-for="(show_list,list_index) in input_data_slot" >{{show_list}} ' +
+                    '<button @click="alert_message(show_list,list_index)">{{item3_button_label[list_index]}}</button>' +
+                '<button @click="item3_add_items()">自定义时间分发演示-Add item事件</button>' +
+                '</li>' +    //此为模板固定数据
             '</ul>' +
             '</div>',
         data:function(){
@@ -69,6 +79,10 @@
             }
         },
         methods:{
+            item3_add_items:function(){
+                alert("adding.....")
+                this.$emit('item3_add_items')
+            },
             alert_message:function(show_list,list_index){
                 item3_label = "item3的按钮little Tips";
                 alert_item3="still wait for more a moment";
@@ -76,6 +90,11 @@
                 item3_arry_slice = new Array();
                 item3_array_push = new Array();
                 item3_array_pop = new Array();
+                item3_array_unshift = new Array();
+                item3_array_shift = new Array();
+                item3_array_sort = new Array();
+                item3_array_reverse = new Array();
+                item3_array_splice = new Array();
 
                 if (show_list == "70"){
                     item3_arry_slice = item3_array;
@@ -91,15 +110,52 @@
                     item3_array_push = JSON.parse(JSON.stringify(item3_array));
                     // 方案三：
                     item3_array_pop = item3_array_pop.concat(item3_array);
+                    item3_array_unshift = item3_array_unshift.concat(item3_array);
+                    item3_array_shift = item3_array_shift.concat(item3_array);
+
                     item3_array_push.push(6,"e","f");
                     item3_array_pop.pop();
+                    item3_array_unshift.unshift("y","z",-1);
+                    item3_array_shift.shift();
                     alert_item3 = "push()函数演示，push函数是在数组末尾添加元素，以item3创建的数组item3_array为例子，" +
-                        "目前item3_array为：" + item3_array.toString() + "，现添加3个元素6,e和f，即item3_array.push(6,''e'',''f''" +
-                        ")，则新数组为：" + item3_array_push.toString() + "。\n" +
+                        "目前item3_array为：" + item3_array.toString() + "，现尾部添加3个元素6,e和f，" +
+                        "即item3_array.push(6,''e'',''f'')，则变成：" + item3_array_push.toString() + "。\n" +
                         "pop()函数演示，pop函数是删除在数组最后的函数，以item3_array为例，" +
                         "目前item3_array为：" + item3_array.toString() + ", 使用pop(),即item3_array.pop()，则变成：" +
-                        item3_array_pop.toString() + "，最后一个元素''d''被删除。";
-                    item3_label = "数组尾部操作方法：push()函数演示,pop()函数演示";
+                        item3_array_pop.toString() + "，最后一个元素''d''被删除。\n" +
+                        "unshift()函数演示，unshift函数是在数组首部，添加元素，以item3创建的数组item3_array为例子，" +
+                        "目前item3_array为：" + item3_array.toString() + "，现首部添加3个元素 y、z和-1，" +
+                        "即item3_array.unshift(''y'',''z'',-1)，则变成：" + item3_array_unshift.toString() + "。\n" +
+                        "shift()函数演示，shift函数是删除数组首部元素，以item3创建的数组item3_array为例子，" +
+                        "目前item3_array为：" + item3_array.toString() + "现删除首部元素，即item3_array.shift()" +
+                        "，则变成：" + item3_array_shift.toString() + "，首个元素0，被删除。";
+                    item3_label = "数组操作方法：尾部：push()函数演示,pop()函数演示；首部：unshift（）函数演示,shift()函数演示";
+                } else if (show_list == "A"){
+                    item3_array = item3_array.concat(-1,-2,"z","k","h");
+                    item3_array_sort = item3_array_sort.concat(item3_array);
+                    item3_array_reverse = item3_array_reverse.concat(item3_array);
+
+                    item3_array_sort.sort();
+                    item3_array_reverse.reverse();
+                    alert_item3 = "sort()函数，可以对当前数组进行排序，会直接修改元素当前的位置，直接调用时会按照默认排序，" +
+                        "以item3_array为例，当前item3_array为:" + item3_array.toString() + "，采用item3_array.sort()后，" +
+                        "所得结果为：" + item3_array_sort.toString() + "。\n" +
+                        "reverse()函数，可以对当前数组整个进行反向排列，也就是反转，会直接修改元素当前的位置，" +
+                        "以item3_array为例，当前item3_array为:" + item3_array.toString() + "，采用item3_array.reverse()后，" +
+                        "所得结果为：" + item3_array_reverse.toString() + "。";
+                    item3_label = "sort函数演示，reverse函数演示";
+                } else if (show_list == "B"){
+                    item3_array_splice = item3_array_splice.concat(item3_array);
+                    item3_array_splice.splice(4,1,"m","n");
+
+                    alert_item3 = "splice()函数，修改数组的万能方法，主要是起到更新的作用，从指定索引删除若干要素，再添加若干要素，" +
+                        "以item3_array为例，目前item3_array为:" + item3_array.toString() + "，采用item3_array.splice(4,1,''m''," +
+                        "''n'')，所得结果为：" + item3_array_splice.toString() + "，在索引4的地方，删除了1个元素a，新增了2个元素m和n。" +
+                        "''m''和''n''可以是一个数组，也可以是单个/多个字符串或者数字。";
+                    item3_label = "'万能'函数-splice()函数演示";
+                } else {
+                    alert_item3 = "自定义时间演示新增item项";
+                    item3_label = "自定义时间演示新增item项";
                 }
                 // 数组在JS通过索引的方式进行赋值，如array[index] = ''ABC''，这种方式可以更新数组，但是页面检测不到数组的更新，即并非响应式的
                 // 如果需要对数组更新，且响应式的展示在页面上，则要用array.splice(index,number,item)的方式
@@ -114,8 +170,14 @@
     });
     Vue.component("todo_list_slot_item1",{
         props:['show_item1'],
-        template:'<li>{{show_item1}}<button @click="alert_tips">数字型items，小知识点</button></li>',
+        template:'<li>{{show_item1}}' +
+                     '<button @click="alert_tips">数字型items，小知识点</button>' +
+                     '<button @click="alert_information">自定义时间分发事件简述</button>' +
+                 '</li>',
         methods:{
+            alert_information:function (){
+                this.$emit('alert_information');
+            },
             alert_tips:function(){
                 alert("如果要在模板上增加事件，需要定义在模板的methods中，不能定义在vm的methods中")
             }
@@ -127,8 +189,11 @@
         // 以下注释语句为错误写法，因为v-for不能用于根元素上，
         // 在以下template中，<li></li>元素为根元素，需要套一层，或者再上层进行v-for设置
         // template:'<li v-for="list_item2 in show_item2">{{list_item2}}>弹出提示</button></li>',
-        template:'<li @click="change_button(show_item2)">{{show_item2}}' +
-                    '<button @click="alert_info(index_item2,show_item2)" >{{item2_button}}</button>' +
+        template:'<li>{{show_item2}}' +
+                    '<button @click="alert_info(index_item2,show_item2),change_button(show_item2)" >' +
+                    '{{item2_button}}</button>' +
+                    // 自定义分发事件-remove案例演示
+                    '<button @click="remove(index_item2)">自定义时间分发演示-Remove事件</button>' +
                  '</li>',
         // 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝。
         // 这是一个函数的形式，不能像外部那样data:{};来引用
@@ -137,17 +202,25 @@
             item2_button:"Item2的按钮小Tips"}
         },
         methods:{
+            remove:function(index_item2){
+                alert("自定义分发事件-remove演示：在插槽或者template中，调用this.$emit('remove',index_item2)语句,remove为插槽" +
+                    "或者template中的自定义的方法，参数index_item2也是插槽或者template中使用的参数，在DIV调用该插槽中，绑定插槽的自定义事件是不需要传参的，但是" +
+                    "绑定VUE实例中的function需要传参，参数也是VUE实例中的参数。在VUE实例中，调用的function为remove_item(array_index)，" +
+                    "结合两者的方法以及参数，在DIV绑定双方事件的为：v-on:remove=''remove_item(index)''，index为DIV传导到插槽或者templeate中" +
+                    "的参数");
+                this.$emit('remove',index_item2);
+            },
             alert_info:function(index_item2,show_item2){
                 case_array = [9,99,999,"99","AA","bb"];
                 alert_item2 = "";
                 alert_acount=0;
                 if (show_item2 == 20 ) {
-                    alert_item2 = "方法：把index传入到template的methods中alert出来，itmes数组的当前index： " + index_item2 +
+                    alert_item2 = "方法：把index传入到template的methods中alert出来，前方标签的位于数组index为： " + index_item2 +
                         ", 数组的索引由0开始，并非由1开始"
                 } else if(show_item2 == 30){
                     alert_item2 = "*-用new Array(9,99,999,''99'',''AA'',''bb'')创建新数组：[" + case_array.toString() +
-                                  "]；*-也可以用 var arry = [9,99,999,''99'',''AA'',''BB'']来直接赋值，切记两种方法使用的符号是不同的，" +
-                                  "一种是(),另外一种是[]，*-如果是数字型可直接写数字，如果是字符型要加双引号！";
+                                  "]；\n*-也可以用 var arry = [9,99,999,''99'',''AA'',''BB'']来直接赋值，切记两种方法使用的符号是不同的，" +
+                                  "一种是(),另外一种是[]；\n*-如果是数字型可直接写数字，如果是字符型要加双引号！";
                 } else if(show_item2 == 40){
                     alert_item2 = "用Array.length来获取数组的长度，即数组可以容纳多少个元素在内，本案例数组长度为：" +
                         case_array.length + "，如果直接对这个长度赋值，会直接改变数组的长度，Array的大小也会发生变化";
@@ -183,7 +256,38 @@
             slot_title: "数组演示",
             slot_item1: 10,
             slot_item2: [20,30,40,50],
-            slot_list: ["70","80","A","B"]
+            slot_list: ["70","80","A","B"],
+            add_array: ["AA","BB","CC","DD","EE"],
+            item3_index: 0,
+            add_array_index: 0
+
+        },
+        methods:{
+            alert_notes:function(){
+                alert("自定义分发事件目的在于，插槽中或者template中的component组件可以操作VUE实例中的数据，这种方法可以通过" +
+                    "this.$emit('自定义方法名','参数')的方式实现，即在插槽或者template中自定义方法名，在VUE实例中定义具体操作VUE实例" +
+                    "数据的方法，两者在插槽或者template的function中通过emit关联在一起。具体步骤如下：\n" +
+                    "1.在VUE实例中，编写好操作实例数据function名字和传参数据；\n" +
+                    "2.在插槽或者template中，自定义一个方法名，其参数要能够和VUE实例中调用的function参数能够保持一致;\n" +
+                    "3.在DIV调用插槽或者template的地方，将【插槽中或者template中的自定义的function名以及参数】和【VUE实例中的function以及参数】一一绑定；\n" +
+                    "4.确保插槽或者template中的function名和参数，能够被一一对应，即能够VUE实例中传导到插槽或者template中。" );
+            },
+            remove_items:function(remove_index){
+                console.log("删除数组元素："  + this.slot_item2[remove_index] + "........Remove Complate!!");
+                this.slot_item2.splice(remove_index,1);
+            },
+            add_items:function(){
+                if (this.add_array_index <= this.add_array.indexOf("EE")){
+                    console.log("在数组末尾中，增加元素：" + this.add_array[this.add_array_index] + "........Adding ");
+                    this.slot_list.push(this.add_array[this.add_array_index]);
+                    this.add_array_index = this.add_array_index + 1;
+                    add_items_status = "Complate !!"
+                } else {
+                    alert("无法继续添加")
+                    add_items_status = "添加失败！！！！"
+                };
+                console.log(add_items_status);
+            }
         }
     });
 </script>
