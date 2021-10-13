@@ -1,6 +1,6 @@
 <template>
   <div>
-    this is 首页
+    <h1 style="color: crimson">this is 首页</h1>
   </div>
 </template>
 

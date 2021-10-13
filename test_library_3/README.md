@@ -1,6 +1,9 @@
 # test_library_3
 
 > learn how to use elementUI
+初始步骤：
+1. 安装项目，在指定文件夹内创建项目文件夹，在这里我们用test_library_3来学习：
+>vue init webpack test_library_3
 
 ## Build Setup
 
