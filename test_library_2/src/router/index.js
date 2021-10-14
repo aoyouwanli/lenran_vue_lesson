@@ -3,6 +3,7 @@
 import Vue from 'vue';
 // 需导入vue-router
 import VueRouter from "vue-router";
+
 // 导入自定义的component页面main作为首页
 import Main from "../components/main";
 // 还需要导入想要使用的模块，也就是我们自定义的component

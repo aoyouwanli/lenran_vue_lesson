@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b57380e8-e880-4e74-ba64-38d865ac78bc" name="Changes" comment="commit 2021年10月13日23:17:31" />
+    <list default="true" id="b57380e8-e880-4e74-ba64-38d865ac78bc" name="Changes" comment="commit 2021年10月13日23:17:31">
+      <change afterPath="$PROJECT_DIR$/../test_library_3/src/router/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test_library_3/src/views/Login.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test_library_3/src/views/main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_2/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../test_library_2/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_2/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../test_library_2/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_3/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../test_library_3/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_3/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../test_library_3/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_3/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../test_library_3/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_3/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_3/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test_library_3/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../test_library_3/src/main.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +45,7 @@
       <option name="presentableId" value="Default" />
       <updated>1634137911484</updated>
       <workItem from="1634137914492" duration="351000" />
+      <workItem from="1634209900678" duration="672000" />
     </task>
     <task id="LOCAL-00001" summary="commit 2021年10月13日23:17:31">
       <created>1634138255757</created>
@@ -56,6 +70,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit 2021年10月13日23:17:31" />

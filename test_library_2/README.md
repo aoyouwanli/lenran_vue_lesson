@@ -11,6 +11,16 @@
 5. 根据项目名称来选择是否安装相关的插件，在这里全部选否；
 6. 安装好后可以运行以下语句来运行项目：
 >npm run dev
+7. npm命令解释：安装模块moduleName(diy)到项目名下；
+>npm install moduleName(diy)
+8. npm命令解释：-g的意思是全装到全局，具体安装的目录视乎npm config prefix的具体位置；
+>npm install -g moduleName(diy)
+9. npm命令解释：--save的意思是将模块安装到项目目录下，并在package.json文件的dependenceies节点写入依赖，-S为该命令缩写
+>npm install --save moduleName(diy)
+10. npm命令解释：--save-dev的意思是将模块安装到项目开发者目录下，并在package.json文件的dependenceies节点写入依赖，-D为该命令缩写
+>npm install --save-dev moduleName(diy)
+
+
 
 ## Build Setup
 
