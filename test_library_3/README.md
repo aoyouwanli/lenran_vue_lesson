@@ -5,7 +5,7 @@
 1. 安装项目，在指定文件夹内创建项目文件夹，在这里我们用test_library_3来学习：
 >vue init webpack test_library_3
 2. 安装vue-router；
->vue install vue-router --save-dev
+>npm install vue-router --save-dev
 3. 安装淘宝的element-ui；
 >npm i element-ui -S
 4. 安装依赖；
@@ -13,7 +13,7 @@
 5. 在npm或者cnpm安装SASS加速器，这里是安装了两个插件，一个是sass-loader，另外一个是node-sass；
    Sass是一个将脚本解析成CSS的脚本语言，是对CSS3（层叠样式表）的语法的一种扩充。
    它可以使用巢状、混入、选择子继承等功能，可以更有效有弹性的写出Stylesheet，本项目后续需要通过sass来进行编译；
->cnpm install sass-loader node-sass --save-dev
+>npm install sass-loader node-sass --save-dev
 6. 可以启动测试了；
 >npm run dev
 7. 创建好项目后，还要增加路由即增加路由文件夹router，增加视图即增加views文件夹，静态资源均放在外层的static文件夹内。

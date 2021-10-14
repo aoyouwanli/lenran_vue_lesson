@@ -4,7 +4,7 @@ import Vue from 'vue';
 // 需导入vue-router
 import VueRouter from "vue-router";
 // 导入自定义的component页面main作为首页
-import main from "../views/main";
+import main from "../views/Main";
 // 导入登录页面；
 import Login from "../views/Login";
 // 安装路由
