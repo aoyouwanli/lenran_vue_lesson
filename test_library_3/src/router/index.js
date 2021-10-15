@@ -4,7 +4,7 @@ import Vue from 'vue';
 // 需导入vue-router
 import VueRouter from "vue-router";
 // 导入自定义的component页面main作为首页
-import main from "../views/Main";
+import Main from "../views/Main";
 // 导入登录页面；
 import Login from "../views/Login";
 // 安装路由
@@ -16,9 +16,9 @@ export default new VueRouter({
     {
       //配置路由路径：
       path: '/main',
-      name: main,
+      name: Main,
       // 跳转的组件
-      component: main
+      component: Main
     },
     {
       //配置路由路径：

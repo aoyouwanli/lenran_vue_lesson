@@ -3,13 +3,13 @@
     <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
       <h3 class="login-title">欢迎登录</h3>
       <el-form-item label="账号" prop="username">
-        <el-input type="text" aria-placeholder="请输入账号" v-model="form.username"></el-input>
+        <el-input type="text" placeholder="请输入账号" v-model="form.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input type="password" aria-placeholder="请输入密码" v-model="form.password"></el-input>
+        <el-input type="password" placeholder="请输入密码" v-model="form.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('loginForm')">登录</el-button>
+        <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
       </el-form-item>
     </el-form>
 
@@ -19,7 +19,7 @@
       width="30%"
       :before-close="handleClose">
       <span>请输入账号和密码</span>
-      <span solt="footer" class="dialog.footer">
+      <span slot="footer" class="dialog.footer">
         <el-button type="primary" @click="dialogVisible = false">确定</el-button>
       </span>
     </el-dialog>
@@ -39,10 +39,10 @@ export default {
       // 表单验证，需要在el-form-item中增加prop属性
       rules: {
         username: [
-          {required: true, message: '账号不可为空', tigger: 'blur'}
+          {required: true, message: '账号不可为空', trigger: 'blur'}
         ],
         password: [
-          {required: true, message: '密码不可为空', tigger: 'blur'}
+          {required: true, message: '密码不可为空', trigger: 'blur'}
         ]
       },
 
@@ -78,7 +78,7 @@ export default {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     box-shadow: 0 0 25px #909399;
-  },
+  }
 
   .login-title{
     text-align: center;

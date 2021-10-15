@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <h1>hello</h1>
-    <router-link to="/main">首页</router-link>
-    <router-link to="/Login">登录</router-link>
+    <h1>this is the first page!!</h1>
+    <router-link to="./main">Main页面</router-link>
+    <router-link to="./Login">登录</router-link>
     <router-view></router-view>
   </div>
 </template>
@@ -17,7 +17,6 @@ export default {
 }
 </script>
 
-<!--注释掉vue自带的样式-->
 <!--<style>-->
 <!--#app {-->
 <!--  font-family: 'Avenir', Helvetica, Arial, sans-serif;-->
