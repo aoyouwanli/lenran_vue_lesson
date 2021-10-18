@@ -11,7 +11,8 @@
 >npm install
 5. 在npm或者cnpm安装SASS加速器，这里是安装了两个插件，一个是sass-loader，另外一个是node-sass；
    Sass是一个将脚本解析成CSS的脚本语言，是对CSS3（层叠样式表）的语法的一种扩充。
-   它可以使用巢状、混入、选择子继承等功能，可以更有效有弹性的写出Stylesheet，本项目后续需要通过sass来进行编译；
+   它可以使用巢状、混入、选择子继承等功能，可以更有效有弹性的写出Stylesheet，本项目后续需要通过sass来进行编译。
+   本案例推荐使用sass-loader版本为7.3.1，node-sass版本为4.14.1；
 >npm install sass-loader node-sass --save-dev
 6. 可以启动测试了；
 >npm run dev
@@ -19,7 +20,6 @@
    components存放功能性组件，views存放视图组件，router存放路由配置，static存放静态资源组件；
 8. 推荐以下网站学习前端，文档生成器:
 >https://docsify.js.org
-9. 本案例推荐使用sass-loader版本为7.3.1，node-sass版本为4.14.1；
 ## Build Setup
 
 ``` bash
