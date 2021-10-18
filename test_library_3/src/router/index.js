@@ -7,6 +7,8 @@ import Router from "vue-router";
 import Main from "../views/Main";
 // 导入登录页面；
 import Login from "../views/Login";
+import userProfile from "../views/user/Profile";
+import userList from "../views/user/userList";
 // 安装路由
 Vue.use(Router);
 
@@ -17,7 +19,22 @@ export default new Router({
       //配置路由路径：
       path: '/main',
       // 跳转的组件
-      component: Main
+      component: Main,
+      // 嵌套路由：
+      children: [{
+        //配置路由路径：
+        path: '/user/userProfile',
+        name: userProfile,
+        // 跳转的组件
+        component: userProfile
+      },
+        {
+          //配置路由路径：
+          path: '/user/userList',
+          name: userList,
+          // 跳转的组件
+          component: userList
+        }]
     },
     {
       //配置路由路径：

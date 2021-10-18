@@ -1,5 +1,55 @@
 <template>
-  <h1 style="color: red"> This is Main-Page</h1>
+  <div>
+    <el-container>
+      <el-aside width="200px">
+        <el-menu :default-openeds="['1']">
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-caret-right"></i>
+              用户管理
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="1-1">
+                <router-link to="/user/userProfile">个人信息</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="/user/userList">用户列表</router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-caret-right"></i>
+              内容管理
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="2-1">
+                分类管理
+              </el-menu-item>
+              <el-menu-item index="2-2">
+                内容管理
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+      <el-container>
+        <el-header style="text-align: right; font-size: 12px">
+          <el-dropdown>
+            <i class="el-icon-setting" style="margin-right: 15px"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>个人信息</el-dropdown-item>
+              <el-dropdown-item>退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-header>
+
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
@@ -8,21 +58,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.login-box{
-  border: 1px solid #DCDFE6;
-  width: 350px;
-  margin: 180px auto;
-  padding: 35px 35px 15px 35px;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  box-shadow: 0 0 25px #909399;
-}
+<style lang="scss" >
+  .el-header {
+    blackground-color: #B3COD1;
+    color: #333;
+    line-height: 60px;
+  }
 
-.login-title{
-  text-align: center;
-  margin: 0 auto 40px auto;
-  color: #303133;
-}
+  .el-aside {
+    color: #333;
+  }
 </style>

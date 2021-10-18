@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <h1>this is the first page!!</h1>
-    <router-link to="./main">Main页面</router-link>
-    <router-link to="./Login">登录</router-link>
     <router-view></router-view>
   </div>
 </template>
