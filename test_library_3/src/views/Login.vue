@@ -10,6 +10,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
+        <el-button type="info" @click="resetLoginForm">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -17,8 +18,8 @@
       title="温馨提示"
       :visible.sync="dialogVisible"
       width="30%"
-      :before-close="handleClose">
-      <span>请输入账号和密码</span>
+      :before-close="closeHandle">
+      <span v-model="dialogAlert">{{ dialogAlert }}</span>
       <span slot="footer" class="dialog.footer">
         <el-button type="primary" @click="dialogVisible = false">确定</el-button>
       </span>
@@ -29,7 +30,7 @@
 <script>
 export default {
   name: "Login",
-  date(){
+  data(){
     return {
       form: {
         username: '',
@@ -39,30 +40,48 @@ export default {
       // 表单验证，需要在el-form-item中增加prop属性
       rules: {
         username: [
+          // 有规则校验，则页面上标签前方会提示一个红色*，如果没有校验规则，则页面要素的标签前面不会有*
+          // 以下这个为用户名栏位是否必输的校验规则：
           {required: true, message: '账号不可为空', trigger: 'blur'}
         ],
         password: [
-          {required: true, message: '密码不可为空', trigger: 'blur'}
+          {required: true, message: '密码不可为空', trigger: 'blur'},
+          // 以下增加密码栏位的最小最大长度的校验规则
+          {min: 6, max: 32, message: '密码位数介于6到32位之间', trigger: 'blur'}
         ]
       },
 
         // 对话框显示还是隐藏
-        dialogVisible: false
+        dialogVisible: false,
+        // 对话框弹出信息
+        dialogAlert: ''
       }
     },
   methods:{
     onSubmit(formName){
       // 为表单绑定验证功能
-      alert("登录功能相当于表单验证，");
       this.$refs[formName].validate((valid) => {
         if(valid){
-          // 使用vue-router路由到指定页面，该方式称之为编程式导航
-          this.$router.push('/main')
+          // 验证密码和用户名，这里应该采用接口进行验证，目前简单的对比用户名和密码
+          if(this.form.username==this.form.password){
+            // 使用vue-router路由到指定页面，该方式称之为编程式导航
+            this.$router.push('/main');
+          } else {
+            this.dialogAlert= "用户名和密码不正确！！！";
+            this.resetLoginForm();
+            this.dialogVisible = true;
+            return false;
+          }
         } else {
+          this.dialogAlert= "请输入用户名和密码";
           this.dialogVisible = true;
           return false;
         }
       });
+    },
+    // 重置用户名和密码栏位，直接通过refs将ref内的所有要素全部清空
+    resetLoginForm() {
+      this.$refs.loginForm.resetFields();
     }
   }
 }

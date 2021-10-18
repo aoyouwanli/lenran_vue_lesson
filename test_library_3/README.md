@@ -17,8 +17,9 @@
 >npm run dev
 7. 创建好项目后，还要增加路由即增加路由文件夹router，增加视图即增加views文件夹，静态资源均放在外层的static文件夹内。
    components存放功能性组件，views存放视图组件，router存放路由配置，static存放静态资源组件；
-   8.推荐以下网站学习前端，文档生成器:
+8. 推荐以下网站学习前端，文档生成器:
 >https://docsify.js.org
+9. 本案例推荐使用sass-loader版本为7.3.1，node-sass版本为4.14.1；
 ## Build Setup
 
 ``` bash
