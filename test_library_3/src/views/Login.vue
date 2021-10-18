@@ -42,12 +42,12 @@ export default {
         username: [
           // 有规则校验，则页面上标签前方会提示一个红色*，如果没有校验规则，则页面要素的标签前面不会有*
           // 以下这个为用户名栏位是否必输的校验规则：
-          {required: true, message: '账号不可为空', trigger: 'blur'}
+          {required: true, message: '账号不可为空', trigger: 'blur'},
+          // 以下增加用户名栏位的最小最大长度的校验规则
+          {min: 6, max: 32, message: '账户位数需介于6到32位之间', trigger: 'blur'}
         ],
         password: [
-          {required: true, message: '密码不可为空', trigger: 'blur'},
-          // 以下增加密码栏位的最小最大长度的校验规则
-          {min: 6, max: 32, message: '密码位数介于6到32位之间', trigger: 'blur'}
+          {required: true, message: '密码不可为空', trigger: 'blur'}
         ]
       },
 
@@ -60,8 +60,8 @@ export default {
   methods:{
     onSubmit(formName){
       // 为表单绑定验证功能
-      this.$refs[formName].validate((valid) => {
-        if(valid){
+      this.$refs[formName].validate((vaild) => {
+        if(vaild){
           // 验证密码和用户名，这里应该采用接口进行验证，目前简单的对比用户名和密码
           if(this.form.username==this.form.password){
             // 使用vue-router路由到指定页面，该方式称之为编程式导航
@@ -73,13 +73,13 @@ export default {
             return false;
           }
         } else {
-          this.dialogAlert= "请输入用户名和密码";
+          this.dialogAlert= "用户名和密码不一致";
           this.dialogVisible = true;
           return false;
         }
       });
     },
-    // 重置用户名和密码栏位，直接通过refs将ref内的所有要素全部清空
+    // 重置用户名和密码栏位，直接通过refs将ref为loginForm内的所有要素全部清空
     resetLoginForm() {
       this.$refs.loginForm.resetFields();
     }
