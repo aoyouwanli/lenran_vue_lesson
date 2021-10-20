@@ -9,18 +9,25 @@ import Main from "../views/Main";
 import login from "../views/Login";
 import userprofile from "../views/user/Profile";
 import userlist from "../views/user/userList";
+import notFund from "../views/notFund";
 // 安装路由
 Vue.use(Router);
 
 // 配置导出路由
 export default new Router({
+  // 路由有两种模式，一种是Hash模式，也就是组成网页链接后是：http://localhost:8080/#/，后面带#号的；
+  // 另外一种是history模式，形成的链接是：http://localhost:8080/，后面不带#号；
+  // 使用方式是如果什么都不设，默认Hash模式，如果设置history模式，就如下设置即可；
+  mode: 'history',
   routes:[
     {
-      //配置路由路径：
-      path: '/main',
+      //配置路由路径，增加参数传递功能，配上username
+      path: '/main/:name',
       name: 'Main',
       // 跳转的组件
       component: Main,
+      // 增加参数传递属性
+      props: true,
       // 嵌套路由：
       children: [{
         //配置路由路径，并且配置需要接收的对象，如下id属于需要接收的对象；
@@ -33,10 +40,11 @@ export default new Router({
       },
         {
           //配置路由路径：
-          path: '/user/userlist',
+          path: '/user/userlist/:username',
           name: 'userlist',
           // 跳转的组件
-          component: userlist
+          component: userlist,
+          props: true
         },
         {
           // 配置返回首页的初始的路径
@@ -52,6 +60,12 @@ export default new Router({
       name: 'login',
       // 跳转的组件
       component: login
+    },
+    {
+      //配置404路由路径，意思是匹配到的则走上方的路由，匹配不到的则走以下路由
+      path: '*',
+      name: 'notFund',
+      component: notFund
     }
   ]
 });

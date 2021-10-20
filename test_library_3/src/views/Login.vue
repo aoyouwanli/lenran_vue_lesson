@@ -46,7 +46,7 @@ export default {
           // 以下这个为用户名栏位是否必输的校验规则：
           {required: true, message: '账号不可为空', trigger: 'blur'},
           // 以下增加用户名栏位的最小最大长度的校验规则
-          {min: 6, max: 32, message: '账户位数需介于6到32位之间', trigger: 'blur'}
+          {min: 2, max: 32, message: '账户位数需介于2到32位之间', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '密码不可为空', trigger: 'blur'}
@@ -66,8 +66,10 @@ export default {
         if(vaild){
           // 验证密码和用户名，这里应该采用接口进行验证，目前简单的对比用户名和密码
           if(this.form.username==this.form.password){
-            // 使用vue-router路由到指定页面，该方式称之为编程式导航
-            this.$router.push('/main');
+            // 使用vue-router路由到指定页面，该方式称之为编程式导航，仅作初始演示，故注释
+            // this.$router.push('/main');
+            // 在登录增加参数传递功能，注意main后面多了一个斜杠/
+            this.$router.push('/main/' + this.form.username);
           } else {
             this.dialogAlert= "用户名和密码不正确！！！";
             this.resetLoginForm();

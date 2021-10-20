@@ -13,10 +13,10 @@
 <!--            二级目录-->
             <el-menu-item-group>
               <el-menu-item index="1-1">
-                <router-link :to="{name: 'userprofile', params: {id: 1, username: 'Learn Vue'}}">参数携带</router-link>
+                <router-link :to="{name: 'userprofile', params: {id: 1, username: name}}">参数携带</router-link>
               </el-menu-item>
               <el-menu-item index="1-2">
-                <router-link to="/user/userlist">用户列表</router-link>
+                <router-link :to="{name: 'userlist', params: {username: name}}">路由钩子函数的学习</router-link>
               </el-menu-item>
               <el-menu-item index="1-3">
 <!--                通过配置router中的index.js，进行重定向操作-->
@@ -46,6 +46,7 @@
 <!--      header设置-->
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
+          <span>{{name}}</span>
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
@@ -65,7 +66,9 @@
 
 <script>
 export default {
-  name: 'Main'
+  name: 'Main',
+  // 接收参数传递
+  props: ['name']
 }
 </script>
 

@@ -1,0 +1,46 @@
+{
+  "userName": "superman",
+  "higherInsititution": "Shenzhen Oversea Develope Department",
+  "headInsititution": "Beijing Officer",
+  "url_163": "https://www.163.com",
+  "url_baidu": "https://www.baidu.com",
+  "userRight": "4",
+  "userType": "Manager",
+  "pageNumber":1,
+  "professional": true,
+  "remarks": "hello, this is a remarks, you need to input something in it.",
+  "userInfo": {
+    "buyerId": "44030",
+    "buyerName": "buyer name is secret ",
+    "buyerAddress": "buyer address is lived in some place",
+    "sellerId": "1234567890",
+    "sellerName": "seller name is sellerName",
+    "sellerAddress": "seller address is lived in everywhere",
+    "createDate": "2021-09-21",
+    "shipFromAddress": "shipFromAddress",
+    "shipToAddress": "shipToAddress",
+    "goodsDescription": "goodsDescription",
+    "currency": "CNY",
+    "amount": "88888888.00"
+  },
+  "userOrderList": [{
+    "sequenceNo": "1",
+    "orderNumber": "44030_1234567890",
+    "itemDescription": "Mate X",
+    "price": "123456789.00",
+    "quantity": "100000.00",
+    "unit": "台",
+    "totalCurrency": "USD",
+    "totalAmount": "999999999.99"
+  },
+    {
+      "sequenceNo": "2",
+      "orderNumber": "44030_0123456789",
+      "itemDescription": "iphone 13 pro max",
+      "price": "123456789.00",
+      "quantity": "100.00",
+      "unit": "台",
+      "totalCurrency": "USD",
+      "totalAmount": "88888888.88"
+    }]
+}
