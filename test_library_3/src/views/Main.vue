@@ -1,38 +1,49 @@
 <template>
   <div>
     <el-container>
+<!--      侧边栏部分-->
       <el-aside width="200px">
         <el-menu :default-openeds="['1']">
+<!--          一级目录-->
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-caret-right"></i>
               用户管理
             </template>
+<!--            二级目录-->
             <el-menu-item-group>
               <el-menu-item index="1-1">
-                <router-link to="/user/userProfile">个人信息</router-link>
+                <router-link :to="{name: 'userprofile', params: {id: 1, username: 'Learn Vue'}}">参数携带</router-link>
               </el-menu-item>
               <el-menu-item index="1-2">
-                <router-link to="/user/userList">用户列表</router-link>
+                <router-link to="/user/userlist">用户列表</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-3">
+<!--                通过配置router中的index.js，进行重定向操作-->
+                <router-link to="/backToMain">重定向：返回首页</router-link>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+<!--          第二个一级目录-->
           <el-submenu index="2">
             <template slot="title">
               <i class="el-icon-caret-right"></i>
               内容管理
             </template>
+<!--            第二个二级目录-->
             <el-menu-item-group>
               <el-menu-item index="2-1">
                 分类管理
               </el-menu-item>
               <el-menu-item index="2-2">
-                内容管理
+                时间排序管理
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+
         </el-menu>
       </el-aside>
+<!--      header设置-->
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
           <el-dropdown>
@@ -58,14 +69,14 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style scoped lang="scss">
   .el-header {
-    blackground-color: #B3COD1;
-    color: #333;
+    background-color: #51b4c4;
+    color: #083f49;
     line-height: 60px;
   }
 
   .el-aside {
-    color: #333;
+    color: #ff7d83;
   }
 </style>

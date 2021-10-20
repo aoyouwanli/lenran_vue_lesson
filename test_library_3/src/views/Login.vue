@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import vue_router from "../router";
+
 export default {
   name: "Login",
   data(){
