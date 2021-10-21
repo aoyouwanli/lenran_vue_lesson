@@ -25,21 +25,35 @@
       <br>{{ placeholder }}静态资源只能存放在static中才能读取，故json文件存放在static中；
       <br>{{ placeholder }}由于涉及到测试，故新建mock（测试专有文件名）文件夹，我们的测试静态文件名字取为：testData.json；
       <br>3. 需要采用异步通讯，那么意味着我们展示的时候，数据应该已经准备好，也就是说在进入路由钩子之前，就应该发起了请求；
-      <br>因此，我们需要在beforeRouteEnter:(to,from,next) => { next(); }中，next();之前进行异步通讯访问；
-      <br>所以，我们要创建一个通讯的方法，本案例使用方法名为：getTestData();
-      <br>aa{{userName}} bb{{username}}
+      <br>因此，我们需要在beforeRouteEnter:(to,from,next) => { next(); }中，或者在next();之前进行异步通讯访问；
+      <br>首先，我们要创建一个通讯的方法，本案例使用方法名为：getTestData();
+      <br>接着，可以通过上面提到的next( vm=>{} );这个方法在进入路由之前也就是beforeRouteEnter中，执行getTestData()这个方法；
+      <br>使用方式为：beforeRouteEnter:(to,from,next) => { next( vm => { vm.getTestData(); } ); }
+      <br>也可以在next();之前，执行getTestData()方法；但是如果在next之前执行axios方法,需要先import  axios，否则无法使用；
+      <br>在testData中的userName为：{{testData.userName}}
+      <br>testData中的数据为：{{testData}}
     </h6>
   </div>
 </template>
 
 <script>
+import axios from "axios";
   export default {
     name: "userList",
     props: ['username'],
     // 进入路由之前的路有钩子
     beforeRouteEnter:(to,from,next) => {
-      console.log("进入当前页面的路由钩子之前：")
-      next();
+      console.log("进入当前页面的路由钩子之前：");
+      // 直接访问本地路径的静态资源，也可以通过http://localhost:8080/static/mock/testData.json的方式
+      // 一下演示不成功：
+      // axios.get('/static/mock/testData.json').then(res => (this.testData=res.data));
+      // axios.get('http://localhost:8080/static/mock/testData.json').then(response => (this.testData=response.data));
+      // next();
+      next(vm => {
+          // 进入路由之前执行该方法
+          vm.getTestData()
+        }
+      );
     },
     // 进入路由之后的路由钩子
     beforeRouteLeave:(to,from,next) => {
@@ -48,12 +62,35 @@
     data() {
       return {
         placeholder: '\xa0\xa0\xa0\xa0',
-        userName: this.username
+        userName: this.username,
+        testData: {
+          userName: null,
+          remarks: null,
+          pageNumber: null,
+          userInfo: {
+            buyerId: null
+          }
+        }
       }
     },
     methods: {
       getTestData: function(){
-
+        // alert("getTestData is begin:");
+        // 有两种方式实现axios的请求后，将请求对象赋值给当前的实例对象
+        // 方式一：
+        // var _this = this;
+        // _this.axios({
+        //   method: 'get',
+        //   url: 'http://localhost:8080/static/mock/testData.json'
+        //   }
+        // ).then(function (response) {
+        //   console.log(response);
+        //   _this.testData = response.data;
+        //   console.log("赋值给testData" + _this.testData);
+        // });
+        // 推荐使用方式二
+        // 方式二：
+        this.axios.get('http://localhost:8080/static/mock/testData.json').then(response => {this.testData=response.data});
       }
     }
   }
