@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>操作BOM对象演示：</h1>
+        BOM对象，也就是浏览器的意思，可以通过浏览器操作电脑的很多属性
+    <br>以下演示，通过打开浏览器后，按F12按键，点选控制台完成，这里通过按钮演示
+    <h3>window</h3>
+        window.xxxx来实现，由于window是全局变量，如果熟悉的话，可以直接xxxx来实现；
+    <br>比如window.alert()，也就可以直接写alert()了;
+    <br>获取浏览器的内高（F12后，控制台不算）：innerHeight
+    <button onclick="alert(innerHeight + ' px')">浏览器内高</button>
+    <br >获取浏览器内宽（F12后，控制台部分不算）：innerWidth
+    <button onclick="alert(innerWidth + ' px')">浏览器内宽</button>
+    <br>获取浏览器的外高（整个浏览器的宽度）：outerHeight
+    <button onclick="alert(outerHeight + ' px')">浏览器外高</button>
+    <br>获取浏览器外宽（整个浏览器的宽度）：outerWidth
+    <button onclick="alert(outerWidth + ' px')">浏览器外宽</button>
+    <br>调整浏览器的窗口，相应的数据也会进行变化；
+    <br>window的所有属性：window
+    <button onclick="alert('F12控制台中，输入window，回车后可观察')">window的所有属性</button>
+
+    <h3>navigator</h3>
+        navigator也代表浏览器，Navigator是一个类，注意带小写；
+    <br>注意：该函数所获取的值，是浏览器在代码中封装的信息，仅能参考，不能作为标准；
+    <br>因为，用户可以通过相应的程序文件，对相应的属性进行修改，所以，并非标准可用的判断来源；
+    <br>以下为navigator的部分应用以及相应的演示：
+    <br>获取相应浏览器当前应用的名字：navigator.appName
+    <button onclick="alert(navigator.appName)">浏览器应用名</button>
+    <br>获取浏览器应用版本号：navigator.appVersion
+    <button onclick="alert(navigator.appVersion)">浏览器应用版本号</button>
+    <br>获取当前浏览器运行的平台：navigator.platform
+    <button onclick="alert(navigator.platform)">当前系统的运行平台</button>
+    <br>navigator的所有属性：navigator
+    <button onclick="alert('F12控制台中输入：navigator，回车可观察')">navigator所有属性</button>
+
+    <h3>screen</h3>
+        screen代表屏幕，可以通过这个函数获取当前屏幕的属性；
+    <br>获取屏幕的高度：screen.height
+    <button onclick="alert(screen.height + ' px')">当前屏幕高度</button>
+    <br>获取屏幕的宽度：screen.width
+    <button onclick="alert(screen.width + ' px')">当前屏幕宽度</button>
+    <br>以上两项，也是组成我们屏幕的标准分辨率，比如1920*1080， 1366*768等
+    <br>screen的所有属性：screen
+    <button onclick="alert('F12控制台中输入：screen，回车可观察')">screen的所有属性</button>
+
+    <script>
+
+    </script>
+
+</body>
+</html>
