@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b57380e8-e880-4e74-ba64-38d865ac78bc" name="Changes" comment="commit 2021年10月13日23:17:31">
-      <change afterPath="$PROJECT_DIR$/../test_library_js-1/lesson-JS-面向对象编程.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

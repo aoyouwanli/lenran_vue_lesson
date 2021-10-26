@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS-面向对象编程-class的继承</title>
+</head>
+<body>
+    <h1>面向对象编程：</h1>
+    在以前，如果需要在function中，增加function
+    <br>首先，假设我们有个user的function如下：
+    <h4 style="color: #1b58ff"> function single_user(name){ this.name = name; };</h4>
+        原有的继承，如果像在user的基础上新增一个function，假设为年龄age，需要新增一个prototype：
+    <h4 style="color: #1b58ff">user.prototype.age = function (){ alert(this.user_name + ' age is xxx'); };</h4>
+        然后使用这个function：
+    <h4 style="color: #1b58ff">var peter = new single_user('Peter');</h4>
+        那么用户姓名可以这样获得：
+    <h4 style="color: #1b58ff">peter.user_name，用户年龄为：peter.user_age()"</h4>
+        演示：假设目前有个Peter的single_user，那么这个用户的信息如下：
+    <br><button onclick="alert(peter.user_name)">用户姓名</button>
+    <button onclick="peter.user_age()">用户年龄</button>
+    <h3 style="color: red">ES6之后发生了变化</h3>
+        首先，需要新增一个类：以corp_user举例：class corp_user{ }；
+    <br>需要通过constructor构造器内构造这个corp_user的属性，比如姓名:
+    <br>class corp_user{
+    <h4 style="color: #1b58ff">constructor(name){ this.corp_user_name = name;  }</h4>
+    <br>}
+    <br>如果要在这个类中新增一个方法，比如说以age举例，则，可以直接在类当中，直接定义，连function这个关键字都不需要，如下：
+    <br>class corp_user{
+    <h4 style="color: #1b58ff">constructor(name){ this.corp_name = name;  }</h4>
+    <h4 style="color: #1b58ff">age(){ alert(this.corp_name + 'corp user age is yyy'); }</h4>
+        }
+    <br>然后使用这个class：
+    <h4 style="color: #1b58ff">var tom = new corp_user("Tom");</h4>
+        用户姓名可以这样获取：
+    <h4 style="color: #1b58ff">tom.corp_user_name，用户年龄为：tom.age()</h4>
+        演示：假设有个Tom的corp_user，演示如下：
+    <br><button onclick="alert(tom.corp_user_name)">用户姓名</button>
+    <button onclick="tom.age()">用户年龄</button>
+
+
+    <script>
+        var user_name = '';
+        var corp_user_name = '';
+        // class继承：
+        // ES6之前的做法：
+        // 假设目前有一个user的方法
+        function single_user(name){
+            this.user_name = name;
+
+        };
+        // 原有的继承，如果像在user的基础上新增一个function，假设为年龄age，需要如下操作：
+        single_user.prototype.user_age = function (){
+            alert(this.user_name + ' age is xxx');
+        };
+        // 用法如下：
+        var peter = new single_user('Peter');
+
+        // ES6之后，如果需要在function中加function，则可以通过以下方式，以copr_user举例：
+        // 首先定义一个类
+        class corp_user{
+            // 用constructor构造器内构造这个corp_user的属性
+            constructor(name) {
+                this.corp_user_name = name;
+            }
+            age(){
+                alert(this.corp_user_name + '  age is yyy');
+            }
+        };
+        var tom = new corp_user("Tom");
+
+    </script>
+
+</body>
+</html>
