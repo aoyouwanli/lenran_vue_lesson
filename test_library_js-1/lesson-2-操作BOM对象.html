@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-2-操作BOM对象</title>
+</head>
+<body>
+<div id="learn_js">
+    <h1>操作BOM对象演示：</h1>
+        BOM对象，也就是浏览器的意思，可以通过浏览器操作电脑的很多属性
+    <br>目前具备代表性的浏览器主要有几种：IE（windows平台）、Chrome（google自身研发的浏览器）、Safari（苹果自身研发的）、FireFox（Linux系统）
+    <br>其他浏览器都是根据以上的内核进行开发，还有个小众的Opera浏览器；
+    <br>以下演示，通过打开浏览器后，按F12按键，点选控制台完成，这里通过按钮演示
+
+    <h3 style="color: #1b58ff">window</h3>
+        windows代表窗口，也就是指浏览器当前的窗口；
+    <br>主要函数通过window.xxxx来实现，由于window是全局变量，如果熟悉的话，可以直接xxxx来实现；
+    <br>比如window.alert()，也就可以直接写alert()了;
+    <br>获取浏览器的内高（F12后，控制台不算）：innerHeight
+    <button onclick="alert(innerHeight + ' px')">浏览器内高</button>
+    <br >获取浏览器内宽（F12后，控制台部分不算）：innerWidth
+    <button onclick="alert(innerWidth + ' px')">浏览器内宽</button>
+    <br>获取浏览器的外高（整个浏览器的宽度）：outerHeight
+    <button onclick="alert(outerHeight + ' px')">浏览器外高</button>
+    <br>获取浏览器外宽（整个浏览器的宽度）：outerWidth
+    <button onclick="alert(outerWidth + ' px')">浏览器外宽</button>
+    <br>调整浏览器的窗口，相应的数据也会进行变化；
+    <br>window的所有属性：window
+    <button onclick="alert('F12控制台中，输入window，回车后可观察')">window的所有属性</button>
+
+    <h3 style="color: #1b58ff">navigator（不建议使用）</h3>
+        navigator也代表浏览器，Navigator是一个类，注意带小写；
+    <br>注意：该函数所获取的值，是浏览器在代码中封装的信息，仅能参考，不能作为标准；
+    <br>因为，用户可以通过修改程序文件，对相应的属性进行修改，所以，并非绝对标准，不建议作为判断来源；
+    <br>以下为navigator的部分应用以及相应的演示：
+    <br>获取相应浏览器当前应用的名字：navigator.appName
+    <button onclick="alert(navigator.appName)">浏览器应用名</button>
+    <br>获取浏览器应用版本号：navigator.appVersion
+    <button onclick="alert(navigator.appVersion)">浏览器应用版本号</button>
+    <br>获取当前浏览器运行的平台：navigator.platform
+    <button onclick="alert(navigator.platform)">当前系统的运行平台</button>
+    <br>navigator的所有属性：navigator
+    <button onclick="alert('F12控制台中输入：navigator，回车可观察')">navigator所有属性</button>
+
+    <h3 style="color: #1b58ff">screen</h3>
+        screen代表屏幕，可以通过这个函数获取当前屏幕的属性；
+    <br>获取屏幕的高度：screen.height
+    <button onclick="alert(screen.height + ' px')">当前屏幕高度</button>
+    <br>获取屏幕的宽度：screen.width
+    <button onclick="alert(screen.width + ' px')">当前屏幕宽度</button>
+    <br>以上两项，也是组成我们屏幕的标准分辨率，比如1920*1080， 1366*768等
+    <br>screen的所有属性：screen
+    <button onclick="alert('F12控制台中输入：screen，回车可观察')">screen的所有属性</button>
+
+    <h3 style="color: red">location（重要）</h3>
+        location代表当前URL的信息，比如在www.baidu.com的页面中，location函数就可以获取百度的信息；
+    <br>首先打开百度的页面：<a href="https://www.baidu.com">百度</a>
+    <br>a标签讲解，a标签是自带href函数，该函数可进行跳转，如果不带https://字样，会自动拼接到本身的url后面去，也可以跳转到其他div上
+    <br>a标签的中间，是自定义的标签，内部是另外一个url指向；以此为例，百度的指向是https://baidu.com，也可以指向其他网址；
+    <br>以当前页面作为演示案例：
+    <br>获取当前URL主机：location.host：
+    <button onclick="alert(location.host)">当前URL主机</button>
+    <br>获取当前URL的href链接：location.href：
+    <button onclick="alert(location.href)">当前href链接</button>
+    <br>获取当前URL的协议：location.protocol：
+    <button onclick="alert(location.protocol)">当前协议</button>
+    <br>重新加载当前URL，也就是刷新页面方法：location.reload()：
+    <button onclick="location.reload()">刷新</button>
+    <h5 style="color: red">重点介绍下location.assign(),效果和a标签当中的href类似：</h5>
+        当在assign()中传入指定的网址，就会自动跳转到相应的网站中，以location.assign('https://www.baidu.com')举例：
+    <button onclick="location.assign('https://www.baidu.com')">location.assign跳转</button>
+    <br>location的所有属性：location
+    <button onclick="alert('F12控制台中输入：location，回车可观察')">location的所有属性</button>
+
+    <h3 style="color: red">document（重要）</h3>
+        document，代表当前页面，HTML、DOM文档树
+    <br>获取当前页面的title：document.title:
+    <button onclick="alert(document.title)">当前页面title</button>
+    <br>也可以通过这个方法，来改变title的名称，比如我要改成学习JavaScript的title：document.title='学习JavaScript':
+    <button onclick="document.title='学习JavaScript'">改HTML的TITLE，请看html的标签名</button>
+    <br>document.getElementById， 可以动态的获取节点，那也就是可以动态的增加节点和删除节点；
+    <button onclick="alert('F12，打开控制台，输入learn_js，查看learn_js的数据')">通过id获取文档树数据</button>
+    <br>也可以document.getElementsByName()，通过名字获取文档树数据,也有document.getElementsByClassName()，获取类的名字等；
+    <br>获取当前URL的cookie：document.cookie:
+    <button onclick="alert('打开任意网站，F12，打开控制台，输入document.cookie，可查看该网站的cookie')">查看cookie</button>
+    <br>cookie包含我们登录网站的信息，因此cookie并不是安全的；它包含了我们登录的所有网站的信息；
+    <br>劫持cookie的原理，就是通过弹窗、点击网站等行为，触发某个JS，JS内通过document.cookie获取了cookie之后
+    <br>将cookie通过ajax或者axios发送到自身服务器后，劫持者即可进行登录淘宝或者相应的网站，进行消费或者取现
+    <br>劫持cookie进行操作，可以通过服务器端设置为httpOnly来进行预防；
+    <br>document的所有属性：document
+    <button onclick="alert('F12控制台中输入：document，回车可观察')">document的所有属性</button>
+
+    <h3 style="color: #1b58ff">history（不建议使用）</h3>
+        主要指当前浏览器的历史记录；
+    <br>history主要记住两个方法，一个是back，一个是forward；
+    <br>back是指当前url返回到上一个页面，和后退是一个意思；forward是往前进一步，也就是back之后可以往前去到下一级URL；
+    <button onclick="alert('打开某个网站，随便跳转几个节点后，F12，打开控制台，输入history.back()，可观察该网站的后退')">back</button>
+    <button onclick="alert('back之后，F12，打开控制台，输入history.forward()，可观察该网站的前进')">forward</button>
+    <br>history的所有属性：history
+    <button onclick="alert('F12控制台中输入：history，回车可观察')">history的所有属性</button>
+    <br>以前还在MVC阶段的时候，也就是同步通讯阶段，登录成功后通过history.back()来实现回到首页，达到快速节省资源的目的；
+    <br>目前进入MVP以及MVVM阶段后，也就是可以异步通讯，也就是有了ajax和axios后，这种方法就逐步减少了，因为这种方法并不安全；
+    <br>并且ajax和axios还能在VUE框架或者其他angular框架下，进行局部刷新；
+    <br><br><br>
+
+</div>
+
+    <script>
+        var learn_js = document.getElementById('learn_js');
+
+
+    </script>
+
+</body>
+</html>

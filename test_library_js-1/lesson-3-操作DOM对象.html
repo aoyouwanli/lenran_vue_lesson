@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-2-操作DOM节点-获得DOM节点</title>
+</head>
+<body>
+<div>
+    <h1>操作DOM对象演示</h1>
+        DOM就是文档对象模型：
+    <br><button  id="button_show" onclick="show_img()" >展示DOM简易模型</button>
+    <button  id="button_hide" onclick="hide_img()" style="display: none">隐藏DOM模型</button>
+    <div id="alert_img"
+         title="DOM模型展示"
+         style="display: none">
+        <img src="./pic/showDOM_png.png" width="703" height="510">
+    </div>
+
+    <br>整个浏览器就是一个DOM树形结构，包括各个div以及相应的url、a、href、button、input、select等，并且针对DOM，有以下几个操作：
+    <br>更新：更新DOM节点
+    <br>遍历DOM节点，得到DOM节点
+    <br>删除：删除一个DOM节点
+    <br>添加：添加一个DOM节点
+    <br>要操作一个DOM节点，前提必须是先获得该节点，然后进行增删改；
+    <br>获取一个DOM节点，要用document来进行操作，先按照以下代码新增一个div：
+    <button onclick="
+        alert(`
+        //代码展示，将< div>中的空格去掉,两个单引号变一个双引号：
+            < div id=''show_div''
+                  style= ''display: none''>
+                <h6 style=''color: red''>这是一个h6标签</h6>
+                <p1 id=''p1''>this is label p1，用id命名</p1>
+                <br>
+                <p2 class=''p2''>这是一个p2标签，用class命名</p2>
+            </div>`)">div代码展示</button>
+    <br><button id="show_div_button" onclick="show_div()">展示div效果</button>
+    <button id="hide_div_button" onclick="hide_div()" style="display: none">隐藏div</button>
+    <div id="show_div"
+         style="display: none">
+        <h6 style="color: red">这是一个h6标签</h6>
+        <p1 id="p1">this is label p1，用id命名</p1>
+        <br>
+        <p2>这是一个p2标签，用classname命名</p2>
+    </div>
+    <br>我们通过document.getElementByTagName('h6');来获得h6标签的DOM节点；
+    <button onclick="alert('F12控制台中，输入dom_h6来查看h6的节点，具体类型为：' + typeof dom_h6)">获得h6节点</button>
+    <br>我们通过document.getElementById('p1');来获得p1标签的DOM节点；
+    <button onclick="alert('F12控制台中，输入dom_p1来查看p1的节点，具体类型为：' + typeof dom_p1)">获得p1节点</button>
+    <br>我们通过document.getElementsByClassName('p2');来获得p2标签的DOM节点；
+    <button onclick="alert('F12控制台中，输入dom_p2来查看p2的节点，具体类型为：' + typeof dom_p2)">获得p2节点</button>
+
+    <br>我们通过dom_div = document.document.getElementById('show_div');来获得整个div的DOM节点，作为父节点；
+    <button onclick="alert('F12控制台中，输入dom_div来查看div的节点，具体类型为：' + typeof dom_div)">获得父节点</button>
+    <br>要获取父节点下所有的子节点，可以通过children来实现，即child_dom_div = dom_div.children;来实现；
+    <button onclick="alert('F12控制台中，输入child_dom_div来查看div的节点，具体类型为：' + typeof child_dom_div)">获得所有子节点</button>
+    <br>同理，既然能通过children来获取所有的子节点，那也可以获得第一个节点，最后一个节点，上一个节点等方式：
+    <br>父节点有多个节点，以此演示：获取第一个节点方法：dom_div_first = dom_div.firstElementChild;
+    <button onclick="alert('F12控制台中，输入dom_div_first来查看div的节点，具体类型为：' + typeof dom_div_first)">获得父节点的第一个子节点</button>
+    <br>父节点有多个节点，以此演示：获取最后一个节点方法：dom_div_last = dom_div.lastElementChild;
+    <button onclick="alert('F12控制台中，输入dom_div_last来查看div的节点，具体类型为：' + typeof dom_div_last)">获得父节点的最后一个子节点</button>
+    <br>通过p1节点，获取相邻的节点：获取p1的下一个节点方法：dom_p1_nextone = dom_p1.nextElementSibling;
+    <button onclick="alert('F12控制台中，输入dom_p1_nextone来查看div的节点，具体类型为：' + typeof dom_p1_nextone)">获得p1点的下一个子节点</button>
+</div>
+
+<script>
+    var dom_h6 = document.getElementsByTagName('h6');
+    var dom_p1 = document.getElementById('p1');
+    var dom_p2 = document.getElementsByClassName('p2');
+    var dom_div = document.getElementById('show_div');
+    var child_dom_div = dom_div.children;
+    var dom_div_first = dom_div.firstElementChild;
+    var dom_div_last = dom_div.lastElementChild;
+    var dom_p1_lastone = dom_p1.lastElementChild;
+    var dom_p1_nextone = dom_p1.nextElementSibling;
+
+    function show_img(){
+        var showImg = document.getElementById('alert_img');
+        var showButton = document.getElementById('button_show');
+        var hideButtom = document.getElementById('button_hide');
+        showImg.style.display='block';
+        showButton.style.display='none';
+        hideButtom.style.display='block';
+    };
+    function hide_img(){
+        var hideImg = document.getElementById('alert_img');
+        var showButtom = document.getElementById('button_show');
+        var hideButtom = document.getElementById('button_hide');
+        hideImg.style.display='none';
+        showButtom.style.display='block';
+        hideButtom.style.display='none';
+    };
+    function show_div(){
+        var showDivButton =document.getElementById('show_div_button');
+        var hideDivButton =document.getElementById('hide_div_button');
+        this.dom_div.style.display= 'block';
+        showDivButton.style.display= 'none';
+        hideDivButton.style.display= 'block';
+    }
+    function hide_div(){
+        var showDivButton =document.getElementById('show_div_button');
+        var hideDivButton =document.getElementById('hide_div_button');
+        this.dom_div.style.display= 'none';
+        showDivButton.style.display= 'block';
+        hideDivButton.style.display= 'none';
+    }
+</script>
+</body>
+</html>
