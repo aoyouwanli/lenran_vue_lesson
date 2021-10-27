@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-4-更新/删除/插入/创建DOM节点</title>
+</head>
+<body>
+<div>
+    <h1>一、以下进行更新DOM的演示：</h1>
+        首先，先建立一个div_1的div，然后在script中，通过var div_1 = document.getElementById('div_1');获取；
+    <br>1.更新文本：在div_1中更新文本"update div_1"： this.div_1.innerText='update div_1':
+    <button onclick="text_update()">更新DOM-innerText</button>
+    <br>2.更新文本，并且带标签和格式：innerHTML：this.div_1.innerHTML='< h1 style=''padding: 50px''>update div_1< /h1>'
+    <button onclick="html_update()">更新DOM-innerHTML</button>
+    <h3 style="color: red">注意：innerText并不能增加标签，只能增加文本，并且两者都会将当前内容覆盖；</h3>
+    <br>3.更新CSS样式：通过id的style进行更新：this.div_1.style.color='red';
+    <br>或者this.div_1.style.fontSize='50px':
+    <button onclick="color_update()">更新DOM-CSS-style.color</button>
+    <button onclick="fontsize_update()">更新DOM-style.fontSize</button>
+    <h3>可以通过其他网站来进行实战，显示某些按钮，或者隐藏某些按钮</h3>
+</div>
+<div id="div_1">
+    <h1>空白的div_1区域 </h1>
+</div>
+<div>
+    <h1>二、以下为删除DOM节点的演示</h1>
+        删除DOM节点的过程：
+    <br>1) 首先获取要删除的DOM节点的父节点；2）通过父节点，删除指定DOM节点；
+    <br>1. 删除DOM节点p1，首先获取子节点: var div_2_p1= document.getElementById('p1');
+    <br>2. 接着获取父节点div_2，即：var div_2= document.getElementById('div_2');
+    <br>计划删除以下div_2的p1节点，即为：this.div_2.removeChild(div_2_p1);
+    <br>或者说，应该是：this.div_2.removeChild(document.getElementById('p1'));
+    <br>进一步就是：document.getElementById('div_2').removeChild(document.getElementById('p1'));
+    <br>这里使用this.div_2.removeChild(div_2_p1);进行演示：
+    <button onclick="remove_p1()">删除DOM-删除p1节点</button>
+    <br>3. 如果不清楚父节点的id，或者父节点根本没有id命名，可以通过如下方式获取：var p1_father= div_2_p1.parentElement;
+    <button onclick="alert('F12控制台，输入p1_father回车后，可查看父节点；')">通过子节点，获取父节点</button>
+    <button onclick="delete_p1()">通过子节点p1获得父节点，删除子节点p1</button>
+    <br>4. 通过父节点，可以通过序号删除指定的子节点，比如子节点可以通过这种方式获得：var div2_sub_node = p1_father.children[0];
+    <br>通过这种方式，也可以删除子节点：this.p1_father.removeChild(p1_father.children[0]):
+    <br>或者是：this.p1_father.removeChild(div2_sub_node)，由于div2_sub_node已经赋值，不能够重复使用；
+    <br>但是this.p1_father.removeChild(p1_father.children[0])这种方式，只要父节点下存在0节点，就可以不断重复使用，直到0节点消失才会报错；
+    <br>
+    <button onclick="alert('F12控制台，输入dive2_sub_node回车后，可查看父节点的第0个节点；')">父节点的第0个节点</button>
+    <button onclick="remove_sub_node()">删除父节点的第0个节点</button>
+    <br>5. 删除节点是一个动态的过程，删除了前面的节点后，后续的节点序号会往前递减，比如删除了0节点后，原来的1节点，就会变成了0节点；
+    <h6 style="color: red">
+        注意：
+        <br>1）只有getElementById有remove以及removeChild函数，其他的如通过Name或者TagName等获取的父节点没有这两个函数；
+        <br>2）子节点和父节点，必须都使用getElementById这个方法获取节点，任意一个节点都不能通过Name或者TagName等方式获取DOM节点，否则失效;
+        <br>3) 使用parentElement这个函数获取父节点，同样需要子节点是通过getElementById来获取DOM节点的，
+            这个时候父节点是否有id命名不重要，也就是说没有id命名也能成功获取父节点；
+        <br>4）通过parentElement这个函数获取父节点，同样能用remove以及removeChild删除子节点，
+            而且作用和通过getElementById获取父节点删除子节点的效果是一样的；
+        <br>5) 删除节点是一个动态过程，children[]中，括号的序号要注意，删除子节点后，会被后续的序号顶替，不一定会消失；
+    </h6>
+</div>
+<div id="div_2">
+    父节点div_2，删除DOM节点DIV
+    <p1 id="p1"><br>p1子节点</p1>
+    <p2 id="p2"><br>p2子节点</p2>
+    <p3><br>==========end==========</p3>
+</div>
+
+<script>
+    var div_1= document.getElementById('div_1');
+    var div_2= document.getElementById('div_2');
+    var div_2_p1= document.getElementById('p1');
+    var p2 = document.getElementsByTagName('p2')
+    var p1_father= div_2_p1.parentElement;
+    var div2_sub_node = p1_father.children[0];
+
+    function text_update(){
+        this.div_1.innerText='update div_1';
+    };
+    function html_update(){
+        this.div_1.innerHTML='<h1 style="padding: 50px">html update div_1</h1>';
+    };
+    function color_update(){
+        this.div_1.style.color='red';
+    };
+    function fontsize_update(){
+        this.div_1.style.fontSize='50px';
+    };
+    function remove_p1(){
+        this.div_2.removeChild(div_2_p1);
+    };
+    function delete_p1(){
+        this.p1_father.removeChild(div_2_p1)
+    };
+    function remove_sub_node(){
+        this.p1_father.removeChild(p1_father.children[0]);
+    };
+
+
+</script>
+</body>
+</html>
