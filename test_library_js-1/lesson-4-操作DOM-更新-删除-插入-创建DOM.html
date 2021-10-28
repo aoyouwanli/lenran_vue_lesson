@@ -17,10 +17,12 @@
     <br>或者this.div_1.style.fontSize='50px':
     <button onclick="color_update()">更新DOM-CSS-style.color</button>
     <button onclick="fontsize_update()">更新DOM-style.fontSize</button>
-    <h3>可以通过其他网站来进行实战，显示某些按钮，或者隐藏某些按钮</h3>
+    <h4>可以通过其他网站来进行实战，显示某些按钮，或者隐藏某些按钮</h4>
+    <br><button onclick="reset_div()">Reset-Div</button>
 </div>
 <div id="div_1">
     <h1>空白的div_1区域 </h1>
+    <br><h5>==========end==========</h5>
 </div>
 <div>
     <h1>二、以下为删除DOM节点的演示</h1>
@@ -34,14 +36,13 @@
     <br>这里使用this.div_2.removeChild(div_2_p1);进行演示：
     <button onclick="remove_p1()">删除DOM-删除p1节点</button>
     <br>3. 如果不清楚父节点的id，或者父节点根本没有id命名，可以通过如下方式获取：var p1_father= div_2_p1.parentElement;
-    <button onclick="alert('F12控制台，输入p1_father回车后，可查看父节点；')">通过子节点，获取父节点</button>
+    <br><button onclick="alert('F12控制台，输入p1_father回车后，可查看父节点；')">通过子节点，获取父节点</button>
     <button onclick="delete_p1()">通过子节点p1获得父节点，删除子节点p1</button>
     <br>4. 通过父节点，可以通过序号删除指定的子节点，比如子节点可以通过这种方式获得：var div2_sub_node = p1_father.children[0];
     <br>通过这种方式，也可以删除子节点：this.p1_father.removeChild(p1_father.children[0]):
     <br>或者是：this.p1_father.removeChild(div2_sub_node)，由于div2_sub_node已经赋值，不能够重复使用；
     <br>但是this.p1_father.removeChild(p1_father.children[0])这种方式，只要父节点下存在0节点，就可以不断重复使用，直到0节点消失才会报错；
-    <br>
-    <button onclick="alert('F12控制台，输入dive2_sub_node回车后，可查看父节点的第0个节点；')">父节点的第0个节点</button>
+    <br><button onclick="alert('F12控制台，输入dive2_sub_node回车后，可查看父节点的第0个节点；')">父节点的第0个节点</button>
     <button onclick="remove_sub_node()">删除父节点的第0个节点</button>
     <br>5. 删除节点是一个动态的过程，删除了前面的节点后，后续的节点序号会往前递减，比如删除了0节点后，原来的1节点，就会变成了0节点；
     <h6 style="color: red">
@@ -54,12 +55,41 @@
             而且作用和通过getElementById获取父节点删除子节点的效果是一样的；
         <br>5) 删除节点是一个动态过程，children[]中，括号的序号要注意，删除子节点后，会被后续的序号顶替，不一定会消失；
     </h6>
+    <br><button onclick="reset_div()">Reset-Div</button>
 </div>
 <div id="div_2">
-    父节点div_2，删除DOM节点DIV
+    父节点div_2，删除DOM节点演示DIV
     <p1 id="p1"><br>p1子节点</p1>
     <p2 id="p2"><br>p2子节点</p2>
     <p3><br>==========end==========</p3>
+</div>
+<div>
+    <h1>三、插入DOM节点演示</h1>
+        1. 假设我们获得了某个空的DOM节点，那我们可以通过innerText或者innerHTML来进行插入，一般使用innerHTML；
+    <br>该案例在上面更新DOM的1、2两点有所演示，这里不在赘述；
+    <br>但是，如果这个DOM节点已经存在别的元素，或者不知道是否存在元素，我们使用innerText或者innerHTML就会覆盖DOM节点的元素；
+    <br>一般这种情况下，我们采用的是追加操作,下面演示将JS追加到list节点中：
+    <br>首先，我们要获取到JavaScript节点，即：var js= document.getElementById('js');
+    <br>接着，我们需要获取到list的节点，即：var list= document.getElementById('list');
+    <br>最后，追加节点,即：this.list.appendChild(js);
+    <button onclick="append_list()">将JS插入list节点</button>
+    <br>使用方式和删除节点差不多，但是append会把原来的js节点删除，然后插入到list节点当中去！并不会复制一份，插入到list节点中；
+    <br>2. 接下来，我们试试创建一个新的p节点，即：var dom_p = document.createElement('p');
+    <br>节点创建好后，由于里面为空，需要增加id以及相应的描述，就可以用到更新DOM节点:
+    <br>给p节点添加id，即：dom_p.id='create_p';
+    <br>给p节点添加内容或者其他，如果要带样式的用innerHTML，这里添加文本，故使用innerText，即：dom_p.innerText='JavaOther'
+    <br>观察下新的p节点包含什么：
+    <button onclick="alert('F12控制台，输入dom_p回车后，可查看新的p节点的对象；')">新的p节点所包含的内容</button>
+</div>
+<div id="div_3">
+    <p id="js">JavaScript</p>
+    <div id="list">
+        list：
+        <p id="se">JavaSE</p>
+        <p id="ee">JavaEE</p>
+        <p id="me">JavaME</p>
+    </div>
+
 </div>
 
 <script>
@@ -69,7 +99,26 @@
     var p2 = document.getElementsByTagName('p2')
     var p1_father= div_2_p1.parentElement;
     var div2_sub_node = p1_father.children[0];
+    var js= document.getElementById('js');
+    var list= document.getElementById('list');
+    var dom_p = document.createElement('p');
+    dom_p.id='create_p';
+    dom_p.innerText='JavaOther'
 
+    function reset_div(){
+        // 重置div_1节点
+        this.div_1.style.color= 'black';
+        this.div_1.style.fontSize= '';
+        this.div_1.style.padding= '0px';
+        this.div_1.innerHTML='<h1>空白的div_1区域</h1> \n' +
+            '<br><h5>==========end==========</h5>';
+        // 重置div_2节点
+        this.div_2.innerHTML='' +
+            '父节点div_2，删除DOM节点演示DIV \n' +
+            '    <p1 id="p1"><br>p1子节点</p1> \n' +
+            '    <p2 id="p2"><br>p2子节点</p2> \n' +
+            '    <p3><br>==========end==========</p3>';
+    };
     function text_update(){
         this.div_1.innerText='update div_1';
     };
@@ -90,6 +139,9 @@
     };
     function remove_sub_node(){
         this.p1_father.removeChild(p1_father.children[0]);
+    };
+    function append_list(){
+        this.list.appendChild(js);
     };
 
 
