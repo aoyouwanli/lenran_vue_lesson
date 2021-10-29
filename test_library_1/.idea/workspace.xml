@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b57380e8-e880-4e74-ba64-38d865ac78bc" name="Changes" comment="commit 2021年10月13日23:17:31">
-      <change afterPath="$PROJECT_DIR$/../test_library_js-1/lesson-4-操作DOM-更新-删除DOM.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test_library_js-1/check.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test_library_js-1/lesson-3-操作DOM对象.html" beforeDir="false" afterPath="$PROJECT_DIR$/../test_library_js-1/lesson-3-操作DOM-获得DOM节点.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +44,7 @@
       <workItem from="1635299653239" duration="649000" />
       <workItem from="1635316604370" duration="1234000" />
       <workItem from="1635341492009" duration="634000" />
+      <workItem from="1635477531249" duration="599000" />
     </task>
     <task id="LOCAL-00001" summary="commit 2021年10月13日23:17:31">
       <created>1634138255757</created>

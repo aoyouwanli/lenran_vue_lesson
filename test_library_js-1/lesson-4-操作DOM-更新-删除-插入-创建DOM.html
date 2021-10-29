@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>lesson-4-更新/删除/插入/创建DOM节点</title>
 </head>
-<body>
+<body id="body">
 <div>
     <h1>一、以下进行更新DOM的演示：</h1>
         首先，先建立一个div_1的div，然后在script中，通过var div_1 = document.getElementById('div_1');获取；
@@ -45,6 +45,7 @@
     <br><button onclick="alert('F12控制台，输入dive2_sub_node回车后，可查看父节点的第0个节点；')">父节点的第0个节点</button>
     <button onclick="remove_sub_node()">删除父节点的第0个节点</button>
     <br>5. 删除节点是一个动态的过程，删除了前面的节点后，后续的节点序号会往前递减，比如删除了0节点后，原来的1节点，就会变成了0节点；
+    <br><button onclick="reset_div()">Reset-Div</button>
     <h6 style="color: red">
         注意：
         <br>1）只有getElementById有remove以及removeChild函数，其他的如通过Name或者TagName等获取的父节点没有这两个函数；
@@ -55,7 +56,6 @@
             而且作用和通过getElementById获取父节点删除子节点的效果是一样的；
         <br>5) 删除节点是一个动态过程，children[]中，括号的序号要注意，删除子节点后，会被后续的序号顶替，不一定会消失；
     </h6>
-    <br><button onclick="reset_div()">Reset-Div</button>
 </div>
 <div id="div_2">
     父节点div_2，删除DOM节点演示DIV
@@ -73,6 +73,7 @@
     <br>接着，我们需要获取到list的节点，即：var list= document.getElementById('list');
     <br>最后，追加节点,即：this.list.appendChild(js);
     <button onclick="append_list()">将JS插入list节点</button>
+    <button onclick="alert('F12控制台，输入list回车后，可查看新的list节点的对象；')">观察list节点的值</button>
     <br>使用方式和删除节点差不多，但是append会把原来的js节点删除，然后插入到list节点当中去！并不会复制一份，插入到list节点中；
     <br>2. 接下来，我们试试创建一个新的p节点，即：var dom_p = document.createElement('p');
     <br>节点创建好后，由于里面为空，需要增加id以及相应的描述，就可以用到更新DOM节点:
@@ -80,7 +81,46 @@
     <br>给p节点添加内容或者其他，如果要带样式的用innerHTML，这里添加文本，故使用innerText，即：dom_p.innerText='JavaOther'
     <br>观察下新的p节点包含什么：
     <button onclick="alert('F12控制台，输入dom_p回车后，可查看新的p节点的对象；')">新的p节点所包含的内容</button>
+    <button onclick="p_append()">将新创建的p标签append进list</button>
+    <button onclick="alert('F12控制台，输入list回车后，可查看新的list节点的对象；')">观察list节点的值</button>
+    <br>3. 创建一个新标签，也就是这种标签，并非html上通用的标签，假设为new_tabel,使用方法；
+    <br>首先和createElement一样，创建一个新标签：new_tabel = document.createElement('new_tabel');
+    <br>接着就是给这个标签赋予各种属性，我们可以用到setAttribute()；
+    <br>setAttribute()，有两个属性，第一个就是属性类型，第二个就是属性值，在new_tabel上设置类型为文本的属性值：new_tabel.setAttribute('type','text');
+    <br>最后，我们把这个new_tabel新标签append进list中，并观察list的值：
+    <button onclick="new_tabel_append()">将新创建的new_tabel标签append进list</button>
+    <button onclick="alert('F12控制台，输入list回车后，可查看新的list节点的对象；')">观察list节点的值</button>
+    <br>4. 同样的，HTML内部有head和body，我们同样也可以用这些方法操作head和body这些根元素（root element）；
+    <br>我们可以设置body的背景颜色：
+    <button onclick="body_backgroud()">更换body背景颜色-绿色</button>
+    <br>5. 也可以用append的方式，创建一个bodyStyle标签，并将bodyStyle这个标签，append进head中，以实现更改body背景颜色的作用：
+    <br>首先创建新标签：var bodyStyle = this.body.createElement('style');
+    <br>设置标签的属性为css：bodyStyle.setAttribute('type','text/css');
+    <br>将myStyle的内容innerHtml进去：bodyStyle.innerHTML='body{background-color: cadetblue;}'
+    <br>最后，我们是通过getElementsByTagName('head')获取head父节点，head的0个节点属于head节点；
+    <br>所以我们要把这个bodyStyle的新标签，append进head的0节点中：this.head[0].appendChild(bodyStyle)
+    <br>换种方式的话，也可以通过设置head的id的方式，通过getElementById方式获取head节点，然后append进去也OK；
+    <button onclick="color_append_body()">append到head的0节点中更改body背景色</button>
+    <br>目前，使用的都是append节点到父节点当中，那如果要在前面，或者中间插入节点，就需要使用insertBefore函数了；
+    <br>首先，我们创建个新节点，id=ij，innerHTML描述为Insert Java;我们计划插入到id为ee,描述为JavaEE的前面；
+    <br>我们先获取了se这个子节点，然后用insertBefore到se前面：this.list.insertBefore(ij,se);
+    <button onclick="insert_list()">insert一个ij节点在ee节点前</button>
+    <br>由此我们获悉，insertBefore()这个函数，需要有新、旧子节点这两个参数，即：xxxx.insertBefore(新节点,已存在的节点);
+    <br>我们也可以插入某个位置来实现，目前有JavaSE、JavaEE和JavaME，一共3个list；新创建id为dj描述为Dynamic Java节点；
+    <br>我们可以通过《一》大点中，的children[位置]的方式，获取到已存在节点的位置；
+    <br>原理就是通过用户点选，获取下拉框的设定的0、1、2的value值，作为插入list中children[]中的键值；
+    <br>制作一个select下拉框，value分别为0、1、2，描述各自不同，计划插入位置：
+    <select name= "select_site" id="select_site">
+        <option value="0">1-JavaSE前</option>
+        <option value="1">2-JavaEE前</option>
+        <option selected="selected" value="2">3-JavaME前</option>
+    </select>
+    <br>而后，我们可以根据下拉菜单不同的选项，插入不同的位置：
+    <button onclick="dynamic_insert()">Dynamic Insert</button>
+    <br>6. 替换节点，这里不演示了，和insertBefore()用法一样：replaceChild(新节点，需要被替换的节点)；
+    <br><button onclick="reset_div()">Reset-Div</button>
 </div>
+
 <div id="div_3">
     <p id="js">JavaScript</p>
     <div id="list">
@@ -89,7 +129,6 @@
         <p id="ee">JavaEE</p>
         <p id="me">JavaME</p>
     </div>
-
 </div>
 
 <script>
@@ -104,6 +143,12 @@
     var dom_p = document.createElement('p');
     dom_p.id='create_p';
     dom_p.innerText='JavaOther'
+    var new_tabel = document.createElement('new_tabel');
+    new_tabel.id = 'new_tabel';
+    new_tabel.setAttribute('type','text');
+    new_tabel.innerText='Java-New-Tabel';
+    var body = document.getElementById('body');
+    var head = document.getElementsByTagName('head')
 
     function reset_div(){
         // 重置div_1节点
@@ -118,6 +163,29 @@
             '    <p1 id="p1"><br>p1子节点</p1> \n' +
             '    <p2 id="p2"><br>p2子节点</p2> \n' +
             '    <p3><br>==========end==========</p3>';
+        // 重置div_3节点；
+        this.div_3.innerHTML='' +
+            '<p id="js">JavaScript</p>\n' +
+            '    <div id="list">\n' +
+            '        list：\n' +
+            '        <p id="se">JavaSE</p>\n' +
+            '        <p id="ee">JavaEE</p>\n' +
+            '        <p id="me">JavaME</p>\n' +
+            '    </div>';
+        this.js= document.getElementById('js');
+        this.list= document.getElementById('list');
+        this.dom_p = document.createElement('p');
+        dom_p.id='create_p';
+        dom_p.innerText='JavaOther'
+        this.new_tabel = document.createElement('new_tabel');
+        new_tabel.id = 'new_tabel';
+        new_tabel.setAttribute('type','text');
+        new_tabel.innerText='Java-New-Tabel'
+        this.body.style.backgroundColor='';
+        if ( document.getElementById('bodyStyle') !== null ){
+            this.head[0].removeChild(document.getElementById('bodyStyle'));
+        }
+
     };
     function text_update(){
         this.div_1.innerText='update div_1';
@@ -143,6 +211,36 @@
     function append_list(){
         this.list.appendChild(js);
     };
+    function p_append(){
+        this.list.appendChild(dom_p);
+    };
+    function new_tabel_append(){
+        this.list.appendChild(new_tabel);
+    };
+    function body_backgroud(){
+        this.body.style.backgroundColor='#66947b';
+    };
+    function color_append_body(){
+        var bodyStyle = document.createElement('style');
+        bodyStyle.id = 'bodyStyle';
+        bodyStyle.setAttribute('type','text/css');
+        bodyStyle.innerHTML='body{background-color: cadetblue;}'
+        this.head[0].appendChild(bodyStyle);
+    };
+    function insert_list(){
+        var ij = document.createElement('p')
+        ij.id= 'ij';
+        ij.innerHTML='Insert Java';
+        var se = document.getElementById('ee');
+        this.list.insertBefore(ij,se);
+    }
+    function dynamic_insert(){
+        var dj = document.createElement('p')
+        dj.id= 'dj';
+        dj.innerHTML='Dynamic Java';
+        var select_value = document.getElementById('select_site').value;
+        this.list.insertBefore(dj,list.children[select_value]);
+    }
 
 
 </script>
