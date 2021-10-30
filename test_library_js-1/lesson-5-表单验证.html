@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-5-表单验证</title>
+
+<!--    外部引入JS失败，故下载了个md5.js进行学习-->
+<!--    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>-->
+    <script src="./js/md5.js"></script>
+</head>
+<body>
+<div>
+    <h1>表单-Form的演示</h1>
+        表单的作用在于提交信息，如果提交信息就要对信息进行验证；
+    <br>以下为表单案例演示：
+    <br>注意点：
+    <br>1. 对于单选框和复选框，用id取值后，使用checked属性检查是否被选中，而不是用value的方法取值；
+    <br>如果被选中了，会返回一个true，否则会返回一个false；
+    <br>返过来也可以这样用，把checked属性赋值为true即为选中，否则赋值为false则为未选中；
+    <br>
+    <br>2. required属性为必输属性，可以放置在必须要验证的栏位上；比如userName栏位就是;
+    <br>
+    <br>3. input属性中，type 为submit属于提交按钮;
+    <br>
+    <br>4. action是具体提交的位置，action = '#' 是代表提交到本页面；method是使用什么方法提交，这里用post；
+    <br>
+    <br>5. 没有name属性的话，无法通过F12网络中，查看到具体上送的值；
+    <br>
+    <br>6. 提交按钮使用的是普通提交，所以能够看到明文的密码，button-提交使用了function form_check()；
+    <br>在方法中，使用了MD5的算法来对密码进行了加密；因此在F12，网络中，可以看到密码栏位是密文；
+    <br>使用MD5算法加密，首先要引入一个JS，这个JS在head位置引用一个md5.min.js的文件；
+    <br>这个可以理解为MD5的一个工具类，引入进来后，就可以在body区域的script中进行使用MD5中的类；
+    <div id="from_1">
+        <form action="#" method="post">
+            <p>
+                <span>用户名：</span>
+                <input type="text" id="userName" name="userName"
+                       required placeholder="请输入自定义用户名">
+            </p>
+            <p>
+                <span>性别</span>
+                <input type="radio" id="male" name="userSex" value="m"> 男
+                <input type="radio" id="female" name="userSex" value="f"> 女
+            </p>
+            <p>
+                <span>密码：</span>
+                <input type="password" id="password" name="password" required>
+            </p>
+            <input type="submit">
+            <button type="submit" onclick="form_check()">button-提交</button>
+        </form>
+    </div>
+
+</div>
+<script>
+    var user = document.getElementById('userName'),
+        male = document.getElementById('male'),
+        female = document.getElementById('female'),
+        male_checked = male.checked,
+        female_checked = female.checked,
+        pwd = document.getElementById('password')
+    female.checked = true;
+    function form_check(){
+        alert('加密前的密码：' + pwd.value );
+        // MD5算法加密，大众版本，加密password
+        pwd.value = hex_md5(pwd.value);
+        alert('加密后的密码： ' + pwd.value);
+    }
+
+</script>
+</body>
+</html>
