@@ -2,18 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>lesson-6-jQuery部分</title>
+    <title>lesson-6-jQuery-初识-选择器-事件</title>
+<!--    以下是jQuery生产的，已编译的JS-->
+    <script src="./js/jquery-3.6.0.min.js"></script>
+<!--    以下是jQuery开发模式，未被编译的JS-->
+<!--    <script src="./js/jquery-3.6.0.js"></script>-->
+<!--    以下是jQuery的cdn加速引用模式，采用的是http格式的-->
+<!--    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+
+<!--    css设置-->
+    <style>
+
+    </style>
 </head>
 <body>
 <div>
-    <h1>JQuery的学习</h1>
-        首先要引入jQuery的JS，JS是从官网下载的；<a href="https://jquery.com/download/" target="_blank">jQuery官网-下载区</a>
-    <br>jQuery有两种Js，一种是生产的，已编译的JS，从官网下来是：jquery-3.6.0.min.js
-    <br>另一种是开发模式，未被编译的JS：jquery-3.6.0.js
-    <br>一般情况下我们采用生产版本的，也可以通过百度搜索CDN加速的在线jQuery链接版本；
+    <div>
+        <h1>一、jQuery的初识</h1>
+            首先要引入jQuery的JS，在head中引入，JS是从官网下载的；<a href="https://jquery.com/download/" target="_blank">jQuery官网-下载区</a>
+        <br>jQuery有两种Js，一种是生产的，已编译的JS，从官网下来是：jquery-3.6.0.min.js
+        <br>另一种是开发模式，未被编译的JS：jquery-3.6.0.js
+        <br>一般情况下我们采用生产版本的，也可以通过百度搜索CDN加速的在线jQuery链接版本；
+
+        <h3 style="color: red">jQuery公式：jQuery(selector).action()，也就是$(selector).action()</h3>
+            选择器selector就是css的选择器；
+        <br>以a标签为例：使用js的方式，是先定义一个方法名为alert_js；
+        <br>然后定义方法的用途：function alert_js(){ alert('test function by different methods!'); };
+        <br>引用这个alert_js的事件，则需要在html的a标签中定义事件；
+        <br>如：onclick="alert_js()"，这样在点击a标签的时候，才会触发js的function()；
+        <br>如果使用jQuery呢，则是可以直接在script标签当中，直接定义触发事件和方法：
+        <br>如：$('#test-jquery').click(function alert_jquery(){  alert('test function by jQuery'); });
+        <br>jQuery则是直接将事件和方法，都在script中完成了；不需要在a标签当中，插入onclick事件；
+        <br>当然jQuery和js两者对事件的定义有所区别，比如js是使用onclick，在jQuery是使用click；
+        <br>另外，jQuery的选择是是#开头的，所谓的选择器就是css选择器
+        <br><a href="#" id="test-js" onclick="alert_js()">js测试</a>
+        <br><a href="#" id="test-jquery">jQuery测试</a>
+    </div>
+    <div>
+        <h1>二、jQuery-选择器部分</h1>
+        <h5 style="color: red">jQuery选择器其实就是CSS选择器,CSS中的选择器jQuery都能用，所以js和jQuery上还是有所区别的；</h5>
+            下面是以a标签，id是label_a，有个类是class_a为例，两者差别如下：
+        <br>
+        <table>
+            <style type="text/css">
+                table {
+                    border-collapse :collapse ;
+                }
+                th {
+                    width:120px;
+                    height:40px;
+                    border :1px solid black;
+                    font-size:12px;
+                    text-align :center;}
+                td {
+                    width:300px;
+                    height:40px;
+                    border :1px solid black;
+                    font-size:12px;
+                    text-align :center;
+                }
+            </style>
+            <tr>
+                <th>选择器/使用方法</th>
+                <td><b>JS</b></td>
+                <td><b>jQuery</b></td>
+            </tr>
+            <tr>
+                <th>标签选择器</th>
+                <td>document.getElementsByTagName('a')</td>
+                <td>$('a').action();</td>
+            </tr>
+            <tr>
+                <th>ID选择器</th>
+                <td>document.getElementById('label_a')</td>
+                <td>$('#label_a').action();</td>
+            </tr>
+            <tr>
+                <th>Class Name选择器</th>
+                <td>document.getElementsByClassName('class_a')</td>
+                <td>$('.class_a').action();</td>
+            </tr>
+        </table>
+        <br><b>注：以上的表格可以代码可以作为学习，包含样式的使用；style也可以设置在head独立的style标签内</b>
+        <br>针对jQuery而言，也有以下网址可以参考：
+        <a href="https://jquery.cuishifeng.cn/" target="_blank">jQuery API 3.5.1 速查表</a>
+        <br>这个速查表包含大部分jQuery的大部分方法，第一列就是选择器，速查表截图：
+        <br><button  id="button_show" onclick="show_img()" >速查表截图</button>
+        <button  id="button_hide" onclick="hide_img()" style="display: none">隐藏速查表</button>
+        <div id="jquery_img"
+                     title="DOM模型展示"
+                     style="display: none">
+        <img src="./pic/jQuery选择器列表.png" width="1700" height="1780">
+        </div>
+
+    </div>
+    <div>
+        <h1>三、jQuery事件部分，也就是action()</h1>
+            <b>小知识点：初期网页加载完毕的写法是：$(document).ready(function (){});后来觉得麻烦，就简化成：$(function (){});</b>
+        <br>以下是在div内获取当前鼠标坐标，作为演示：
+        <br>1. 首先，要有鼠标的显示，并设置id：< span id="mouseCoordinate">< /span >
+        <br>2. 设置div，设定ID和框定范围，具体css样式请参考代码，< div id="mouseMove">< /div>
+        <br>样式也可以放head标签里的style标签内，这里css标签是通过id获取，上方table是通过标签获取；
+        <br>3. 定义jQuery的方法：由于具体事件需要页面加载完成后执行的，所以先定义一个：$(function (){});
+        <br>接着，我们要获取的是id为mouseMove这个div里面的坐标，触发事件为鼠标移动mousemove：所以这个jQuery就变成了：
+        <br>$(function (){
+        <br>&nbsp; &nbsp; $(#mouseMove).mousemove()
+        <br>});
+        <br>通过mousemove，我们已经获取了鼠标的具体坐标了，但是我们需要将这些坐标显示到id为mouseCoordinate的span标签中;
+        <br>因此，要设置一个参数输入到function里头去，这个参数由于是局部变量，用完即弃，可以随便命名，这里用parameter表示：
+        <br>$(function(){
+        <br>&nbsp; &nbsp; $('#mouseMove').mousemove(
+        <br>&nbsp; &nbsp; &nbsp; &nbsp; function (parameter){
+        <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $('#mouseCoordinate').text('X轴：' + parameter.pageX + '，  Y轴：' + parameter.pageY)
+        <br>&nbsp; &nbsp; &nbsp; &nbsp; }
+        <br>&nbsp; &nbsp; )
+        <br>});
+        <br><b>事件演示实例：</b>
+
+        <br>
+        <br> <b>mouse 坐标：</b><span id="mouseCoordinate"></span>
+        <div id="mouseMove">
+            <style >
+                #mouseMove {
+                    width:1000px;
+                    height: 500px;
+                    border: 1px solid red;
+                    background-color: #8affdc
+                }
+
+            </style>
+            <h3 style="color: #66947b"><b>鼠标在此div移动即可获取鼠标坐标</b></h3>
+        </div>
+
+    </div>
 </div>
 <script>
-
+    var test_jquery = document.getElementById('test-js');
+    $('#test-jquery').click(function alert_jquery(){
+        alert('test function by jQuery');
+    });
+    function alert_js(){
+      alert('test function by JS');
+    };
+    function show_img(){
+        var showImg = document.getElementById('jquery_img');
+        var showButton = document.getElementById('button_show');
+        var hideButtom = document.getElementById('button_hide');
+        showImg.style.display='block';
+        showButton.style.display='none';
+        hideButtom.style.display='block';
+    };
+    function hide_img(){
+        var hideImg = document.getElementById('jquery_img');
+        var showButtom = document.getElementById('button_show');
+        var hideButtom = document.getElementById('button_hide');
+        hideImg.style.display='none';
+        showButtom.style.display='block';
+        hideButtom.style.display='none';
+    };
+    $(function(){
+        $('#mouseMove').mousemove(
+            function (parameter){
+                $('#mouseCoordinate').text('X轴：' + parameter.pageX + '，  Y轴：' + parameter.pageY)
+            }
+        )
+    });
 </script>
 </body>
 </html>
