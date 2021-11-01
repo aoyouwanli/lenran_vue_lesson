@@ -85,7 +85,8 @@
         </table>
         <br><b>注：以上的表格可以代码可以作为学习，包含样式的使用；style也可以设置在head独立的style标签内</b>
         <br>针对jQuery而言，也有以下网址可以参考：
-        <a href="https://jquery.cuishifeng.cn/" target="_blank">jQuery API 3.5.1 速查表</a>
+        <a href="https://jquery.cuishifeng.cn/"
+           target="_blank" style="background-color: #a9f2ff"><b>======》jQuery API 3.5.1 速查表《======</b></a>
         <br>这个速查表包含大部分jQuery的大部分方法，第一列就是选择器，速查表截图：
         <br><button  id="button_show" onclick="show_img()" >速查表截图</button>
         <button  id="button_hide" onclick="hide_img()" style="display: none">隐藏速查表</button>
@@ -109,7 +110,8 @@
         <br>&nbsp; &nbsp; $(#mouseMove).mousemove()
         <br>});
         <br>通过mousemove，我们已经获取了鼠标的具体坐标了，但是我们需要将这些坐标显示到id为mouseCoordinate的span标签中;
-        <br>因此，要设置一个参数输入到function里头去，这个参数由于是局部变量，用完即弃，可以随便命名，这里用parameter表示：
+        <br>因此，要设置一个参数输入到function里头去，这个参数由于是局部变量，用完即弃，可以随便命名；
+        <br>这里用parameter，也可以用单个字母表示，坐标分别是pageX和pageY，这个是从mousemove里头输出的固定参数：
         <br>$(function(){
         <br>&nbsp; &nbsp; $('#mouseMove').mousemove(
         <br>&nbsp; &nbsp; &nbsp; &nbsp; function (parameter){
@@ -117,6 +119,7 @@
         <br>&nbsp; &nbsp; &nbsp; &nbsp; }
         <br>&nbsp; &nbsp; )
         <br>});
+        <br><b style="color: red">这些jQuery的事件、特效或者方法、函数等，都可以在上方的《二、jQuery-选择器部分》的速查表查到！！！</b>
         <br><b>事件演示实例：</b>
 
         <br>
