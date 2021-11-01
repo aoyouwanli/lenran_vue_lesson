@@ -30,8 +30,12 @@
     <br>在方法中，使用了MD5的算法来对密码进行了加密；因此在F12，网络中，可以看到密码栏位是密文；
     <br>使用MD5算法加密，首先要引入一个JS，这个JS在head位置引用一个md5.min.js的文件；
     <br>这个可以理解为MD5的一个工具类，引入进来后，就可以在body区域的script中进行使用MD5中的类；
-    <div id="from_1">
-        <form action="#" method="post">
+    <br>
+    <br>7. 表单验证事件，可以在form标签下，绑定onsubmit事件，这样在提交按钮上，就不用绑定提交事件了；
+    <br>form上的onsubmit事件如果返回一个false，那么提交就会失败；方法为：onsubmit="return function()"
+    <br>值得注意的是，当这个function()返回true的时候，会顺利提交，当这个方法为false的时候，就不会提交这个表单；
+    <div id="from_1" >
+        <form action="https://www.baidu.com/" method="post"  onsubmit="return form_check()">
             <p>
                 <span>用户名：</span>
                 <input type="text" id="userName" name="userName"
@@ -47,7 +51,7 @@
                 <input type="password" id="password" name="password" required>
             </p>
             <input type="submit">
-            <button type="submit" onclick="form_check()">button-提交</button>
+            <button type="submit">button-提交</button>
         </form>
     </div>
 
@@ -62,9 +66,15 @@
     female.checked = true;
     function form_check(){
         alert('加密前的密码：' + pwd.value );
-        // MD5算法加密，大众版本，加密password
-        pwd.value = hex_md5(pwd.value);
-        alert('加密后的密码： ' + pwd.value);
+        if (user.value == pwd.value) {
+            // MD5算法加密，大众版本，加密password
+            pwd.value = hex_md5(pwd.value);
+            alert('加密后的密码： ' + pwd.value);
+            return true;
+        }else{
+            alert('UserName is not equal password, Please retry again!!')
+            return false;
+        }
     }
 
 </script>
