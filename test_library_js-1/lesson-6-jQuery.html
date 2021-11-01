@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>lesson-6-jQuery-初识-选择器-事件</title>
 <!--    以下是jQuery生产的，已编译的JS-->
-    <script src="./js/jquery-3.6.0.min.js"></script>
+<!--    <script src="./js/jquery-3.6.0.min.js"></script>-->
 <!--    以下是jQuery开发模式，未被编译的JS-->
 <!--    <script src="./js/jquery-3.6.0.js"></script>-->
 <!--    以下是jQuery的cdn加速引用模式，采用的是http格式的-->
-<!--    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <!--    css设置-->
     <style>
@@ -111,7 +111,7 @@
         <br>});
         <br>通过mousemove，我们已经获取了鼠标的具体坐标了，但是我们需要将这些坐标显示到id为mouseCoordinate的span标签中;
         <br>因此，要设置一个参数输入到function里头去，这个参数由于是局部变量，用完即弃，可以随便命名；
-        <br>这里用parameter，也可以用单个字母表示，坐标分别是pageX和pageY，这个是从mousemove里头输出的固定参数：
+        <br>这里用parameter作为入参，也可以用单个字母表示，坐标分别是pageX和pageY，这个是从mousemove里头输出的固定参数：
         <br>$(function(){
         <br>&nbsp; &nbsp; $('#mouseMove').mousemove(
         <br>&nbsp; &nbsp; &nbsp; &nbsp; function (parameter){
