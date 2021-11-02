@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson-7-jQuery-操作DOM</title>
+    <!--    以下是jQuery生产的，已编译的JS-->
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <!--    以下是jQuery开发模式，未被编译的JS-->
+    <!--    <script src="./js/jquery-3.6.0.js"></script>-->
+    <!--    以下是jQuery的cdn加速引用模式，采用的是http格式的-->
+    <!--    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+</head>
+<body>
+<div>
+    <h1>jQuery-操作DOM演示：</h1>
+    <h3>现假设有个div，内里有个ul标签，ul标签是无序列表,内有li标签两条，分别为JavaScript和Python内容的text；</h3>
+    <br>1. 现在我想操作ul下li元素，那首先应该是获得js的text：$('.js').text();
+    <br>我们换个思维，我们可以从ul下获取li的text内容，即先取ul，再取li：$('#ul-list li[class=js]').text()；
+    <br>也可以通过这样的写法，给text赋值，也就是：$('#ul-list li[class=js]').text('JavaScript-reText')；
+    <br>或者是：$('.js').text('JavaScript-reText');
+    <br><b>获得这个js的text值是：$('.js').text();  给这个js的text赋值是：$('.js').text('JavaScript-reText');</b>
+    <br>写法上，比用Js直接操作DOM要简单，而且可以复合在一起使用：
+    <br>比如点击按钮更改js的值，就可以写成：
+    <br>$('#changeJs').click(function (){
+    <br>&nbsp;&nbsp;&nbsp;$('.js').text('JavaScript-reText');
+    <br>})
+    <br>
+    <button onclick="alert(js_value)">获取js的值</button>
+    <button id="changeJs" >更改js的值</button>
+    <br>2. jQuery中.html函数相当于JS的innerHTML，同理：
+    <br>那获得这个ul-list的html就是：$('#ul-list').html();给html赋值就是：$('#ul-list').html('xxxxxx');
+    <button id="alertUl">获得ul-list的html值</button>
+    <button id="changeUl">更改ul-list的html</button>
+    <br>3. 操作CSS，jQuery有专门的css的类，以ul-list中的额li标签举例：
+    <br>将js标签中的字体颜色变成红色：$('.js').css({"color":"red"});
+    <button id="changeJsColor">改变JS的字体颜色</button>
+    <br>jQuery的css，是通过输入一对对键值对，实现操作CSS，实际上，CSS的输入就是一个Json字符串；
+    <br>实现多个css样式变更，实际上就是多个键值对：$('#ul-list').css({"color":"red","background","#8affdc"});
+    <button id="changeUlCss">改变ul-list的背景色以及字体颜色</button>
+    <br>4. 元素的显示和隐藏：
+    <br>这个本质上是对style中display的操作，无非就是none和空，jQuery对此进行封装
+    <br>一个是hide()，对应的是display:none，也就是style="display: none"
+    <br>另外一个是show()，对应的是style="display: block"
+    <button id="hideJs" >隐藏js</button>
+    <button id="showJs">显示JS</button>
+
+    <br><b>重置DIV-UL</b>
+    <button id="reset-div" >Reset DIV</button>
+    <div id="div-ul">
+        <ul id="ul-list">
+            <li class="js">JavaScript</li>
+            <li name="py">Python</li>
+        </ul>
+    </div>
+</div>
+<script>
+        var js_value = $('.js').text();
+        $('#changeJs').click(function (){
+            $('.js').text('JavaScript-reText');
+        });
+
+        $('#alertUl').click(function(){
+            ulValue = $('#ul-list').html();
+            alert(ulValue);
+        });
+
+        $('#changeUl').click(function(){
+            $('#ul-list').html('<li id="vue">VUE</li>');
+        });
+
+        $('#changeJsColor').click(function(){
+            $('.js').css({"color":"red"});
+        });
+
+        $('#changeUlCss').click(function (){
+            $('#ul-list').css({"color":"red","background":"#8affdc"});
+        });
+
+        $('#showJs').click(function (){
+            $('.js').show();
+        });
+
+        $('#hideJs').click(function (){
+            $('.js').hide();
+        });
+
+        $('#reset-div').click(function(){
+            $('#div-ul').html('<ul id="ul-list">\n' +
+                '            <li class="js">JavaScript</li>\n' +
+                '            <li name="py">Python</li>\n' +
+                '        </ul>');
+        });
+
+</script>
+</body>
+</html>
