@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson-2 箭头函数</title>
+</head>
+<body>
+    <div>
+        <h1>箭头函数</h1>
+            箭头函数在未来的unipp以及脚手架中，会被大量使用；
+        <br>比如以前的求和sum,是这样操作的：var sum = function(a,b){ return a+b;};
+        <button onclick="alert_msg(0)">原始操作</button>
+        <br>箭头函数使用后，第一种改进后，就是这样： var sum = (a,b)=>{ return a+b;};
+        <button onclick="alert_msg(1)">第一种改进作</button>
+        <br>第二种改进是： sum = (a,b) => a+b;
+        <button onclick="alert_msg(2)">第二种改进作</button>
+        <br>
+        <br><b>总体规律就是：1. 没有了function这个关键字；
+            <br>2. 在入参后方增加箭头=>;
+            <br>3. 如果逻辑代码，只有return，可以连return这个关键字和大括号也省略；
+            <br>但是在箭头函数中，return前包含其他代码，比如var、if、let等，就不能省略return这个关键字；
+            <br>4. 如果箭头函数中的入参，只有一个参数，你可以连入参的括号也省略，但是如果有多个参数，则不可以省略括号；
+            <br>总结： example = fucntion(a){ return a*2}; （原始用法）
+            <br>可以变为：example = (a)=>{ return a*2}; （箭头函数的改进）
+            <br>可以变为：example = (a)=>a*2; 
+            <br><b style="color: red;">可以变为：example = a=>a*2;</b>
+            </b>
+    </div>
+    <script>
+        var input;
+        var orgin_sum = function(a,b){
+            return a + b;
+        };
+        var first_sum = (a,b)=>{ return a + b; };
+        var second_sum = (a,b)=>a+b;
+        function alert_msg(input){
+            console.log('init')
+            if (input == 0){
+                var result_alert = this.orgin_sum(100,50); 
+                var result_desc = 'var orgin_sum = function(a,b){ \n' + 
+                    'return a + b; \n' + 
+                    '}; \n' +
+                    'var result_alert = this.orgin_sum(100,50);';
+            } else if(input == 1 ){
+                var result_alert = this.first_sum(234,343); 
+                var result_desc = 'var first_sum = (a,b)=>{ return a + b; }; \n' +
+                    'var result_alert = this.first_sum(1000,50); ';
+            } else if(input == 2 ){
+                var result_alert = this.second_sum(8767,6556); 
+                var result_desc = 'var second_sum = (a,b)=>a+b; \n' +
+                    'var result_alert = this.second_sum(8767,6556); ';
+            }
+            alert(`使用方式为：
+            ${result_desc} \n` + 
+            `所得结果为：${result_alert}`);
+        };
+    </script>
+</body>
+</html>

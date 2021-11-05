@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devic-width, initial-scale=1.0">
+    <title>lesson-1: let 和 const</title>
+</head>
+<body>
+    <div>
+        <h1>变量定义：</h1>
+            传统的变量定义都是使用var
+        <br>比如var name = 'hello world';
+        <br>比如var link = 'wwww.baidu.com';
+        <br>再比如常量赋值： var pi = math.pi; 
+        <br>到了ES6，则是一般使用let进行赋值：
+        <br>let name2 = name;let link2 = link;
+        <br>常量赋值：const pi2 = math.pi;
+        <br><b>通过F12，控制台可查看</b>
+        <h5 style="color:rgb(84, 151, 196);">
+            注意：1. var和let的区别在于作用域，var的作用域是全局变量，let的作用域是局部变量；
+        <br>以for循环作为案例演示： for(let或者var i=0; i < 5; i++){ console.log(i); };console.log(i);
+        <br>比如在function中或者循环中，用let定义了变量，超出了这个function或者for循环，那么这个变量就失效报错了；
+        <button onclick="let_alert()">使用let来赋值，小于5时alert出i的值</button>
+        <br>但是，如果是使用var定义的话，超出了这个function或者for循环，依然可以被使用；
+        <button onclick="var_alert()">使用var来赋值，小于5时alert出q的值</button>
+        <br>2. 而且，let和const这两个赋值，是在ES6中被定义出来的，因此，let和const以及某些语法，在一些低版本的浏览器中不一定支持；
+        
+        </h5>
+        <br><button onclick="resetDiv()">Reset Div show1</button>
+
+    </div>
+    <div id = 'show1'>
+        <ul id = 'ul-list'>Show i Area: </ul>
+    </div>
+    <script>
+        var showDiv = document.getElementById('ul-list');
+        var name = 'hello world';
+        var link = 'wwww.baidu.com';
+        var pi = Math.PI; 
+        let name2 = name;
+        let link2 = link;
+        const pi2 = Math.PI;
+        console.log('name : ' + name);
+        console.log('link : ' + link);
+        console.log('pi : ' + pi);
+        console.log('name2 : ' + name2);
+        console.log('link2 : ' + link2);
+        console.log('pi2 : ' + pi2);
+        function let_alert(){
+            
+            for(let i = 0;i<5;i++){
+                var let_text = '用let赋值的i值：' + i ;
+                var let_list = document.createElement('li');
+                let_list.id = 'let_list';
+                let_list.innerText = let_text;
+                this.showDiv.appendChild(let_list);
+                console.log('let赋值的i： ' ,i);
+            }
+            var let_text = '用let赋值的i值：' + i ;
+            var let_list = document.createElement('li');
+            let_list.id = 'let_list';
+            let_list.innerText = let_text;
+            this.showDiv.appendChild(let_list);
+            console.log('let赋值的i： ' ,i);
+        };
+        function var_alert(){
+            
+            var var_list = document.createElement('li');
+            for(var q = 0 ;q<5;q++){
+                var var_list = document.createElement('li');
+                var var_text = '用var赋值的i值：' + q;
+                var_list.id = 'var_list';  
+                var_list.innerText = var_text;
+                this.showDiv.appendChild(var_list);
+                console.log('var赋值的q： ' ,q);
+            };
+            var var_list = document.createElement('li');
+            var var_text = '用var赋值的i值：' + q;
+            var_list.id = 'var_list';  
+            var_list.innerText = var_text;
+            this.showDiv.appendChild(var_list);
+            console.log('var赋值的q： ' ,q);
+                
+        };
+        function resetDiv(){
+            this.showDiv.innerHTML='';
+        };
+    </script>
+</body>
+</html>
