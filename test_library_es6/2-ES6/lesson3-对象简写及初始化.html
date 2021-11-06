@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson-3-对象的简写及其初始化</title>
+</head>
+<body>
+    <div>
+        <h1>ES6中对象的简写</h1>
+            首先，对象是由{}组成的，内里的元素是通过key: value的方式存在，中间以逗号作为间隔；
+        <br>原始的对象中，如果要对其属性进行赋值，是通过：{key1: 变量1, key2: 变量2}，的方式；
+        <br>1. 在新的ES6规范中，如果对象属性中，key的名字和变量的名字相同，可以直接写key值即可；
+        <br><b>也就是说，key: 变量名，直接变成key，比如：info{title: title，}直接变成：info{title};</b>
+        <br>2. 如果对象中的属性值是一个函数，我们可以把冒号和function去掉
+        <br>比如我们创建的对象info={ go: function(){ console.log('helleWorld') } };
+        <br><b>可以直接变成：info={go (){ console.log('HelloWorld') } };</b> 
+        <br><button onclick="alert_info1()">show orgin js message</button>
+        <button onclick="alert_info2()">show ES6 js message</button>
+
+        <br><button onclick="resetDiv()">Reset the showCase1 Div</button>
+        <div id = 'showCase1'>
+            <h1>show case1 展示区</h1>
+        </div>
+        <h1>对象简写案例：</h1>
+        <div id= showCase2>
+            <form action="">
+                <p><span>账号</span><input type="text" id="account"></p>
+                <p><span>密码</span><input type="password" id="password"></p>
+                <p><input type="button" value = "登录" id="login "></p>
+            </form>
+        </div>
+
+    </div>
+    <script>
+        var showCase1 = document.getElementById('showCase1');
+        var title = 'Part info';
+        var link = 'https://baidu.com';
+        var text = 'this is the information part';
+        var info1 ={
+            title: title, 
+            link: link,
+            text: text,
+            go: function(){
+                let text_org = document.createElement('p');
+                text_org.id = 'text';
+                text_org.innerText= text + '1';
+                showCase1.appendChild(text_org);
+            }
+        };
+        var info2 ={
+            title,
+            link,
+            text,
+            go (){
+                let text_es6
+                text_es6 = document.createElement('p');
+                text_es6.id = 'text';
+                text_es6.innerText= text + '2';
+                showCase1.appendChild(text_es6);
+            }
+        };
+        function resetDiv(){
+            this.showCase1.innerHTML='<h1>show case1 展示区</h1>';
+        }
+        function alert_info1(){
+            
+            alert(`
+            对象info1的属性值：
+            title: ${this.info1.title}
+            link: ${this.info1.link}
+            text: ${this.info1.text}
+            `);
+            this.info1.go();
+        };
+        function alert_info2(){
+            alert(`
+            对象info2的属性值：
+            title: ${this.info2.title}
+            link: ${this.info2.link}
+            text: ${this.info2.text}
+            `);
+            this.info2.go();
+        };
+    </script>
+</body>
+</html>
