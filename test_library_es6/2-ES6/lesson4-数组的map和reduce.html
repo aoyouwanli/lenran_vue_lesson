@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson-4-数组的map和reduce</title>
+</head>
+<body>
+    <div>
+        <h1>数组的map和reduce</h1>
+        <h3>1. map()函数：</h3>
+            首先，我们定义一个基础的数组为：var arr = [1,2,3,4,5,6,7,8,9,10];
+        <br>现在我要对数组中每个元素都乘以2: 
+        <br>传统方式就是：先定义一个新数组：newArr = [];
+        <br>然后for循环arr都乘以2，然后push到新数组newArr里：
+        <br>for( let i = 0 ; i < arr.length;i++ ) { newArr.push(arr[i] * 2); };
+        <br><button onclick="show_arr()">将arr添加到showCase1中展示</button>
+        <button onclick="show_newArr()">将newArr添加到showCase1中展示</button>
+        <br>我们用乘以3和上方做出区分，使用map的函数则是：
+        <br>var arrMap = arr.map(function(ele){ return ele * 3; });
+        <br>根据箭头函数的1、2、3、4点规则，最终演化成如下语句：
+        <br>var arrMap = arr.map( ele => ele * 3);
+        <br>其中，ele是作为自定义入参使用，用完即弃，可以随意命名；
+        <br><button onclick="show_arrMap()">将arrMap添加到showCase1中展示</button>
+        <br>案例应用，假设目前有这么一个user数组：
+        <br>var user = [ {age: 10, name: 'user1'}, {age: 20, name: 'user2'}, {age:30, name: 'user3'} ];
+        <br><button onclick="show_user()">将user添加到showCase1中展示</button>
+        <br>年龄分别是对应10、20和30，现在系统已经过了5年，需要每个年龄增加5岁，并增加一个checked属性为true；
+        <br>那么我们就可以通过map函数，将数组中的年龄取出增加5岁，并且，增加checked属性：
+        <br>var userMap = user.map(e => {e.age = e.age + 5; e.checked = true; return e });
+        <br>其中，e是作为自定义入参使用，用完即弃，可以随意命名；
+        <br><button onclick="show_userMap()">将userNewAge添加到showCase1中展示</button>
+        <br><b>通过以上案例，map函数拥有两个作用：
+            <br>(1) 按顺序回填，age和name，都按顺序填入到新数组中；
+            <br>(2) 将处理后的数据回填到相应位置的功能， 每个age增加了5，并且每个数组元素都新增了一个checked属性；</b>
+        <h3>2. reduce()函数</h3>
+            数组叠加，以上方arr作为案例演示；
+        <br>目前有个需求，需要将arr数组中，没个元素加起来的总和；
+        <br>我们可以通过reduce()函数实现，我们通过total来接收数组的总和，原始使用方式如下：
+        <br>var total = arr.reduce(function(a,b){ return a + b });
+        <br>也就是：var total = arr.reduce((a,b)=>return a + b );
+        <br><button onclick="show_total()">将arr所有元素相加，结果添加到showCase1中展示</button>
+        <br>其中reduce()需要入参a和b两个参数，这两个参数实际上是动态变化的；
+        <br>执行reduce()函数过程中，一开始a和b，实际上是arr[0]和arr[1], 相加后，即a + b的结果，赋值为a；
+        <br>这个时候，a实际上就是arr[0] + arr[1]，b则变成了arr[2];如此循环往复，最终全部元素相加；
+        <br>按照这个原理，实际上，通过reduce()函数，我们也可以用arr中每个元素执行加减乘除操作；
+        <br>相减：var arr_total2 = arr.reduce((a,b)=> a - b );
+        <br><button onclick="show_total2()">将arr所有元素相减，结果添加到showCase1中展示</button>
+        <br>相乘：var arr_total3 = arr.reduce((a,b)=> a * b );
+        <br><button onclick="show_total3()">将arr所有元素相乘，结果添加到showCase1中展示</button>
+        <br>相除：var arr_total2 = arr.reduce((a,b)=> a / b );
+        <br><button onclick="show_total4()">将arr所有元素相除，结果添加到showCase1中展示</button>
+        <br><b>扩展，也可以进行a和b的四则运算：(a+b)*a/b</b>
+        <br>结果：var arr_total5 = arr.reduce((a,b)=> (a+b)*a/b );
+        <br><button onclick="show_total5()">将arr各元素运算结果添加到showCase1中展示</button>
+
+
+        <div>
+            <br><button onclick="resetDiv()">Reset the showCase1 Div</button>
+            <div id = 'showCase1'>
+                <h1>show case1 展示区</h1>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        var showCase1 = document.getElementById('showCase1')
+        var arr = [1,2,3,4,5,6,7,8,9,10];
+        var newArr = [];
+        for(let i = 0;i<arr.length;i++){
+            newArr.push(arr[i] * 2);
+        };
+        var arrMap = arr.map( ele => ele * 3);
+        var user = [ 
+            { age: 10, 
+            name: 'user1' 
+            },
+            {age: 20,
+            name: 'user2'
+            },
+            {age:30,
+            name: 'user3'
+            }
+        ];
+        var userMap = user.map(e => { 
+            e.age = e.age + 5;
+            e.checked = true;
+            return e
+        });
+        var arr_total = arr.reduce( (a,b)=> a + b );
+        var arr_total2 = arr.reduce((a,b)=> a - b );
+        var arr_total3 = arr.reduce((a,b)=> a * b );
+        var arr_total4 = arr.reduce((a,b)=> a / b );
+        var arr_total5 = arr.reduce((a,b)=> (a+b)*a/b );
+        function resetDiv(){
+            showCase1.innerHTML='<h1>show case1 展示区</h1>';
+        };
+        function show_arr(){
+            addArr = document.createElement('p');
+            addArr.id = 'addArr';
+            addArr.innerText= 'arr数组： ' + arr ;
+            showCase1.appendChild(addArr);
+        };
+        function show_newArr(){
+            addNewArr = document.createElement('p');
+            addNewArr.id = 'addNewArr';
+            addNewArr.innerText= 'newArr数组： ' + newArr ;
+            this.showCase1.appendChild(addNewArr);
+        };
+        function show_arrMap(){
+            addArrMap = document.createElement('p');
+            addArrMap.id = 'addArrMap';
+            addArrMap.innerText= 'arrMap数组： ' + arrMap ;
+            this.showCase1.appendChild(addArrMap);
+        };
+        function show_user(){
+            for(let i=0;i<user.length;i++){
+                adduser = document.createElement('li');
+                adduser.id = 'addArrMap';
+                let user_ele = 'user[' + i + ']: ' + 'age: ' + user[i].age + '， name: ' +  user[i].name;
+                adduser.innerHTML= 'user数组： ' + user_ele + '<br>';
+                this.showCase1.appendChild(adduser);
+            }
+        };
+        function show_userMap(){
+            for(let i=0;i<user.length;i++){
+                addUserMap = document.createElement('li');
+                addUserMap.id = 'addUserMap';
+                let user_ele = `userMap[${i}]: age: ${userMap[i].age}， name: ${userMap[i].name}， checked: ${userMap[i].checked}`;
+                addUserMap.innerHTML= 'userMap数组： ' + user_ele + '<br>';
+                this.showCase1.appendChild(addUserMap);
+            }
+        };
+        function show_total(){
+            addTotal = document.createElement('p');
+            addTotal.id = 'addTotal';
+            addTotal.innerText= 'arr相加的总和，total为： ' + arr_total ;
+            this.showCase1.appendChild(addTotal);
+        };
+        function show_total2(){
+            addTotal2 = document.createElement('p');
+            addTotal2.id = 'addTotal2';
+            addTotal2.innerText= 'arr相减的总和，total2为： ' + arr_total2 ;
+            this.showCase1.appendChild(addTotal2);
+        };
+        function show_total3(){
+            addTotal3 = document.createElement('p');
+            addTotal3.id = 'addTotal3';
+            addTotal3.innerText= 'arr相乘的总和，total3为： ' + arr_total3 ;
+            this.showCase1.appendChild(addTotal3);
+        };
+        function show_total4(){
+            addTotal4 = document.createElement('p');
+            addTotal4.id = 'addTotal4';
+            addTotal4.innerText= 'arr相除的总和，total4为： ' + arr_total4 ;
+            this.showCase1.appendChild(addTotal4);
+        };
+        function show_total5(){
+            addTotal5 = document.createElement('p');
+            addTotal5.id = 'addTotal5';
+            addTotal5.innerText= 'arr各元素进行运算，结果total5为： ' + arr_total5 ;
+            this.showCase1.appendChild(addTotal5);
+        };
+    </script>
+</body>
+</html>

@@ -16,20 +16,35 @@
         <br>2. 如果对象中的属性值是一个函数，我们可以把冒号和function去掉
         <br>比如我们创建的对象info={ go: function(){ console.log('helleWorld') } };
         <br><b>可以直接变成：info={go (){ console.log('HelloWorld') } };</b> 
-        <br><button onclick="alert_info1()">show orgin js message</button>
-        <button onclick="alert_info2()">show ES6 js message</button>
+        <br><button onclick="alert_info1()">info1属性：show orgin js message</button>
+        <button onclick="alert_info2()">info2属性：show ES6 js message</button>
+        <br>3. 对象的解构：
+        <br>一般情况下，我们通过点获取对象的属性和方法，比如info.title或者info2.go();
+        <br>我们也可以通过[]的方式获取对象的属性和方法，比如info["title"]或者info2.["go"]()
+        <br>另外，获取对象的属性和方法，我们一般是通过如下方式：
+        <br> var show_title = info.title; 或者 var go = info2.go;
+        <br><button onclick="show_info1()">show orgin js message by []</button>
+        <button onclick="show_info2()">show orgin js message by {}</button>
+        <br>4. 对象的传播操作符：
+        <br>如果有个info3这么一个对象，我仅需要info2里头的text和go()；
+        <br>一般情况下，我们是采用var text3 = info2.text; go3 = info2.go;
+        <br>然后再赋值给info3 = { text: text3; go: go3; }的方式；
+        <br>通过传播操作符，我们可以直接一个var或者let就可以实现：
+        <br>即：var = {title, link, ...info3} = info2;
+        <br>通过对象的解构，我们知道title获取了info2.title, link获取了info2.link;
+        <br>那么通过...info3，就相当于获取了info2这个对象中，除了title和link之外的其余属性；
+        <br>通过展示，我们可以了解到title和link并没有被info3获取到；
+        <br>go的话是能够完整获取到的，展示区并不会应用到go这段代码；
+        <br>在这里，我们使用箭头函数，给info3新增了append_go属性，使它展示的是info3：
+        <br><button onclick="alert_info3()">展示info3属性</button>
+        <br>另：如果想获取info1里头的全部属性，那我们直接用var info4 = info1;就好了！
+        <br>不嫌麻烦也可以用var {...info4 } = info1;
+        <br><button onclick="alert_info4()">展示info4属性</button>
+
 
         <br><button onclick="resetDiv()">Reset the showCase1 Div</button>
         <div id = 'showCase1'>
             <h1>show case1 展示区</h1>
-        </div>
-        <h1>对象简写案例：</h1>
-        <div id= showCase2>
-            <form action="">
-                <p><span>账号</span><input type="text" id="account"></p>
-                <p><span>密码</span><input type="password" id="password"></p>
-                <p><input type="button" value = "登录" id="login "></p>
-            </form>
         </div>
 
     </div>
@@ -61,6 +76,22 @@
                 showCase1.appendChild(text_es6);
             }
         };
+        var {title, link, ...info3} = info2;
+        info3.append_go = ()=>{
+            let text_es6
+                text_es6 = document.createElement('p');
+                text_es6.id = 'text';
+                text_es6.innerText= text + '3';
+                showCase1.appendChild(text_es6);
+        };
+        var info4 = info1;
+        info4.append_go = ()=>{
+            let text_es6
+                text_es6 = document.createElement('p');
+                text_es6.id = 'text';
+                text_es6.innerText= text + '4';
+                showCase1.appendChild(text_es6);
+        };
         function resetDiv(){
             this.showCase1.innerHTML='<h1>show case1 展示区</h1>';
         }
@@ -71,6 +102,7 @@
             title: ${this.info1.title}
             link: ${this.info1.link}
             text: ${this.info1.text}
+            go: ${this.info1.go}
             `);
             this.info1.go();
         };
@@ -80,13 +112,52 @@
             title: ${this.info2.title}
             link: ${this.info2.link}
             text: ${this.info2.text}
+            go: ${this.info2.go}
             `);
             this.info2.go();
         };
-        function login_from(){
-            let account = document.getElementById('account');
-            let password = document.getElementById('password');
+        function show_info1(){
             
+            alert(`
+            直接通过[]获取对象info1的属性值：
+            如：this.info1["title"];this.info1["link"];this.info1["text"];this.info1["go"]();
+            title: ${this.info1["title"]}
+            link: ${this.info1["link"]}
+            text: ${this.info1["text"]}
+            `);
+            this.info1["go"]();
+        };
+        function show_info2(){
+            let {title,link,text,go} = info2;
+            alert(`
+            通过{}获取对象info2的属性值，再alert出来：
+            let {title,link,go} = info2;
+            title: ${title}
+            link: ${link}
+            text: ${text}
+            `);
+            go();
+        };
+        function alert_info3(){
+            alert(`
+            对象info3的属性值：
+            title: ${this.info3.title}
+            link: ${this.info3.link}
+            text: ${this.info3.text}
+            go: ${this.info3.go}
+            append_go: ${this.info3.append_go}
+            `);
+            this.info3.append_go();
+        };
+        function alert_info4(){
+            alert(`
+            对象info4的属性值：
+            title: ${this.info4.title}
+            link: ${this.info4.link}
+            text: ${this.info4.text}
+            go: ${this.info4.go}
+            `);
+            this.info4.append_go();
         };
 
     </script>
